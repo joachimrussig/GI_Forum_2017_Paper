@@ -7,7 +7,7 @@
 * Finding a Route with Minimal Heat Stress
   * Edge Weighting
   * Finding the Optimal Point in Time
-* Results
+* Evaluation / Results
 * Conclusion
 
 # Figures
