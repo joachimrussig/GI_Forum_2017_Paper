@@ -23,4 +23,6 @@
 *.synctex.gz
 *.bcf
 *.run.xml
+*.bib.bak
+*.bib.sav
 .DS_Store
