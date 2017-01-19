@@ -33,6 +33,20 @@ Several research projects have considered environmental factors for pedestrian r
 
 The NaviComf framework for pedestrian routing proposed by \citeauthor{Dang2012} (\citeyear{Dang2012}, \citeyear{Dang2013}), enables to improve the comfort considering environmental factors varying over time. The proposed framework uses a multi-factor cost model for the evaluation of the route and enables them to consider heterogeneous environmental information from multi-modal sensors like air temperature and humidity. To find a optimal route \textcite{Dang2013} are proposing three different algorithms,  a bounded depth-first search algorithm, an adjustable dynamic planning algorithm and a heuristic particle planning algorithm. As a sample application, the authors implemented a routing app for thermal comfort navigation. The meteorological used for this sample application have been collected using a network of 40 micro-climate sensor nodes which detected air temperature and relative humidity. 
 
+\subsection{Thermal Comfort}
+
+To achieve our goals, we need a measure to describe the influence of heat on the human body.  In this context, the term thermal comfort plays a key role, which describes climatic conditions consider comfortable, i.e. neither to warm nor to cold.
+
+To describe the influence of the atmospheric environment on the human body it is not sufficient to only take the air temperature into account. Other factors like the humidity, wind speed, sun radiation clothing and physical activity playing an important role as well \parencite{Staiger2011,Huebler2007}.  Those it's essential to consider a complete heat budget model of the human body to be able to make any reliable statements on the thermal perception and the physiological load on the cardiovascular system \parencite{Staiger1997}. A complete heat budget model of the human body must reach a balance between the internal heat production and environment by exchanging heat, e.g. via sweating \parencite{Staiger2011}. 
+
+Over time different indices that considers a complete human heat budget model haven been developed like \citeauthor{Steadman1979}'s heat index  (\citeauthor{Steadman1979} \citeyear*{Steadman1979}, \citeyear*{Steadman1979a}), the predicted mean vote (PMV) \parencite{Fanger1973}, the perceived temperature \parencite{Staiger1997,Jendritzky2000} or the universal thermal climate Index UTCI \parencite{Jendritzky2010}.
+
+For the examination of the thermal comfort the following meteorological parameters are important: air temperature, vapour pressure,
+wind velocity and mean radiant temperature of the surroundings \parencite{Matzarakis1999}.
+
+Because we only had air temperature and the relative humidity at hand we used \citeauthor{Steadman1979}'s heat index \parencite{Steadman1979} and as a simple comparison measure the air temperature. To compute an approximation of the heat index we used the formula published by \textcite[77]{Stull2011}. 
+
+
 \subsection{Contribution}
 
 In this paper we are making contributions to finding a route with minimal heat stress as well as to find a point in time with a minimal heat exposure. 
