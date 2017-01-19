@@ -7,11 +7,24 @@
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \usepackage{amsmath,amssymb,amsfonts}
+\usepackage{siunitx}
 \usepackage{hyperref}
 
 \usepackage{csquotes}
 \usepackage[style=authoryear,backend=biber]{biblatex} 
 \addbibresource{literature.bib}
+
+\DeclareCiteCommand{\citeyear}
+{}
+{\bibhyperref{\printfield{year}}}
+{\multicitedelim}
+{}
+
+\DeclareCiteCommand{\citeyear*}
+{}
+{\bibhyperref{\printfield{year}\printfield{extrayear}}}
+{\multicitedelim}
+{}
 
 %opening
 \title{Decision Support for Route Planning to Reduce Heat Stress Considering the Time of the Day}
@@ -28,6 +41,10 @@
 	
 	Our results are showing that both approaches are able to reduce the heat exposure and therefore can help people to decrease the risk of heat stress in their everyday life.
 \end{abstract}
+
+\input{introduction}
+
+% \input{basics}
 
 \section{Story}
 \begin{itemize}
@@ -62,8 +79,6 @@
 \item Conclusion and contribution
 \end{itemize}
 
-
-\input{introduction}
 
 \printbibliography
 
