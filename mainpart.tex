@@ -1,0 +1,37 @@
+% !TeX encoding = utf8
+% !TeX spellcheck = en_GB
+
+\section{Minimize Heat Exposure}
+
+We are presenting to possible ways how people can be supported to reduce their heat stress risk in their everyday life. First we're presenting an approach to find a route for pedestrian with a minimal heat exposure. On this basis, we show an approach to find a point in time with a minimal heat exposure, for instance to go shopping in a supermarket.
+
+\subsection{Finding a Route with Minimal Heat Exposure}
+
+Finding a route with minimal heat exposure can either be modelled as time-dependent or as a time-expanded routing problem. In case of a time-dependent routing problem the edge weighting function is not static and may vary over time. That means that many speed up techniques developed for static routing problems like bi-directional search cannot simply be applied \parencite{Delling2009}. In the case of time-expanded routing problem every node is replaced by multiple nodes representing the node at a different time. The advantage is, that finding the shortest path in the expended graph is a static routing problem, but there can be a huge blow up of the number of nodes in the network. Those the time-expanded modelling is usually applied on e.g. timetable information \parencite{Delling2009} and we are focusing on the time-depended approach. 
+
+\subsubsection{Modelling as a Time-Dependent Routing Problem}
+
+To find a optimal route we have to model the road network in an appropriate manner. In the following, we are representing the road network as undirected graph $G=(V,E,w_d,w_h)$, where $V$ is the set of vertices or nodes (e.g. junctions) and $E\subseteq V\times V$ is the set of edges (e.g. road segments) each connecting a pair of nodes. Furthermore $w_d: E \to \mathbb{R}_{\geq 0}$ and $w_h: E \times T \to \mathbb{R}_{\geq 0}$ are to edge weighting function, at which:
+\begin{itemize}
+	\item $w_d(e)$ is the length of the edge $e$, and
+	\item $w_h(e, t)$ is the heat exposure of edge $e$ at time $t$.
+\end{itemize}   
+Below, a path $p$ from node $v_0$ to node $v_k$ starting a time $t_0$ is denoted as sequence of edge time pairs $((e_{v_0v_1},t_0),(e_{v_1v_2},t_1),\dots, (e_{v_{k-1}v_k},t_{k-1}))$, where $t_i$ is the time at which node $v_i$ is leaved. The weight of an edge is fixed at the time the traversing of the edge is started \parencite[the so-called frozen link model,][]{Orda1990}. The point in time $t_i$ can be computed as follows: $t_i := t_{i-1} + t_{walk}(e_{v_{i-1},v_i})$ where $t_{walk}(e_{v_{i-1},v_i})$ is the time needed by a pedestrian to traverse the edge $e_{v_{i-1},v_i}$. The starting time $t_0$ is ether given or set to $0$. 
+
+To compute the weight of a path $w_h(p)$ the following formula can be applied:
+	\begin{equation}\label{eq:path-weight}
+		w_h(p) := \sum_{(t,e) \in p} w_h(e, t).
+	\end{equation}
+Those means we are looking for the path $p^*$ from a node $u$ to a node $v$ that has the minimal weight of all possible path from $v$ to $u$. Below, we are using $w_h(p, t)$ to denote the weight of the path $p$ starting at time $t$. 
+
+The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) or non-passing property is not fulfilled \parencite{Orda1990}. A edge weighting function $w: E \times T \to \mathbb{R}_{\geq 0}$ stratifies the FIFO property if for all edges $e=(u,v)\in E$ and all points in time $t, t' \in T$ with $t \leq t'$ the following holds \parencite{Ahn1991}:
+   \begin{equation}\label{eq:fifo-property}
+  	 t + w(e,t) \leq w(e, t').
+   \end{equation}
+In other words, a weighting function $w$ fulfils the FIFO property when the numerator (change of the edge weight)decreases not faster than the denominator (change in actual time) increases, i.e. the slope of the weighting function is greater or equals to $-1$ \parencite{Kaufman1993}.  
+
+Usually, we cannot assume that $w_h$ fulfils the FIFO property, because the function most of the time depends on the air temperature and the decrease of the air temperature can be more than $-1$. Since, most people are not willing to wait at a node as well, finding a route with a minimal heat exposure is $\mathcal{NP}$-hard. Therefore, 
+hereafter the edge weighting is frozen at the starting time $t_0$ so that we have static route planning problem a classic algorithms like  \citeauthor{Dijkstra1959}'s algorithm \parencite{Dijkstra1959} can be applied. 
+
+\subsubsection{The Edge Weighting Function}
+ 
