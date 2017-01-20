@@ -34,4 +34,36 @@ Usually, we cannot assume that $w_h$ fulfils the FIFO property, because the func
 hereafter the edge weighting is frozen at the starting time $t_0$ so that we have static route planning problem a classic algorithms like  \citeauthor{Dijkstra1959}'s algorithm \parencite{Dijkstra1959} can be applied. 
 
 \subsubsection{The Edge Weighting Function}
+
+\begin{itemize}
+	\item general modelling (distance times heat exposure), $T^{comfort}$ as lower bound
+	\item mapping raster cells to road network
+	\item explain data available (or should that be part of )
+\end{itemize}
  
+ \subsection{Finding the Optimal Point in Time}
+ 
+ \begin{itemize}
+ 	\item general idea
+ 	\item the three steps to find the optimal point in time
+ 		\begin{enumerate}
+ 			\item Nearby search
+ 			\item Find the optimal point in time
+ 			\item ranking by the optimal value found in step 2
+ 		\end{enumerate}
+ \end{itemize}
+ 
+ \subsubsection{Modelling as a Optimization Problem}
+ 
+ \begin{itemize}
+ 	\item modelling of the constrains
+ 	\item objective function (only the modelling where the heat exposure of the path is used as objective function, equation 4.5 in the master thesis)
+ \end{itemize}
+
+ \subsubsection{Optimization}
+ 
+ \begin{itemize}
+ 	\item transformation of the constrains to a lower and a upper bound
+ 	\item introduction of a penalty term if the constrains are violated
+ 	\item simple optimization algorithms without derivatives like Brent's method can be applied   
+ \end{itemize}
