@@ -7,9 +7,9 @@ We are presenting to possible ways how people can be supported to reduce their h
 
 \subsection{Finding a Route with Minimal Heat Exposure}
 
-Finding a route with minimal heat exposure can either be modelled as time-dependent or as a time-expanded routing problem. In case of a time-dependent routing problem the edge weighting function is not static and may vary over time. That means that many speed up techniques developed for static routing problems like bi-directional search cannot simply be applied \parencite{Delling2009}. In the case of time-expanded routing problem every node is replaced by multiple nodes representing the node at a different time. The advantage is, that finding the shortest path in the expended graph is a static routing problem, but there can be a huge blow up of the number of nodes in the network. Those the time-expanded modelling is usually applied on e.g. timetable information \parencite{Delling2009} and we are focusing on the time-depended approach. 
-
 \subsubsection{Modelling as a Time-Dependent Routing Problem}
+
+Finding a route with minimal heat exposure can be modelled as time-dependent routing problem, that means the edge weighting function is not static and may vary over time. Subsequently, many speed up techniques developed for static routing problems like bi-directional search cannot be applied \parencite{Delling2009}. 
 
 To find a optimal route we have to model the road network in an appropriate manner. In the following, we are representing the road network as undirected graph $G=(V,E,w_d,w_h)$, where $V$ is the set of vertices or nodes (e.g. junctions) and $E\subseteq V\times V$ is the set of edges (e.g. road segments) each connecting a pair of nodes. Furthermore $w_d: E \to \mathbb{R}_{\geq 0}$ and $w_h: E \times T \to \mathbb{R}_{\geq 0}$ are to edge weighting function, at which:
 \begin{itemize}
@@ -22,9 +22,9 @@ To compute the weight of a path $w_h(p)$ the following formula can be applied:
 	\begin{equation}\label{eq:path-weight}
 		w_h(p) := \sum_{(t,e) \in p} w_h(e, t).
 	\end{equation}
-Those means we are looking for the path $p^*$ from a node $u$ to a node $v$ that has the minimal weight of all possible path from $v$ to $u$. Below, we are using $w_h(p, t)$ to denote the weight of the path $p$ starting at time $t$. 
+Those means we are looking for the path $p^*$ from a node $v$ to a node $u$ that has the minimal weight of all possible path from $v$ to $u$. Below, we are using $w_h(p, t)$ to denote the weight of the path $p$ starting at time $t$. 
 
-The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) or non-passing property is not fulfilled \parencite{Orda1990}. A edge weighting function $w: E \times T \to \mathbb{R}_{\geq 0}$ stratifies the FIFO property if for all edges $e=(u,v)\in E$ and all points in time $t, t' \in T$ with $t \leq t'$ the following holds \parencite{Ahn1991}:
+The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) or non-passing property is not fulfilled \parencite{Orda1990}. A edge weighting function $w: E \times T \to \mathbb{R}_{\geq 0}$ stratifies the FIFO property if for all edges $e=(u,v)\in E$ and all points in time $t, t' \in T$ with $t \leq t'$ the following in-equation is met \parencite{Ahn1991}:
    \begin{equation}\label{eq:fifo-property}
   	 t + w(e,t) \leq w(e, t').
    \end{equation}
