@@ -9,61 +9,125 @@ We are presenting to possible ways how people can be supported to reduce their h
 
 \subsubsection{Modelling as a Time-Dependent Routing Problem}
 
-Finding a route with minimal heat exposure can be modelled as time-dependent routing problem, that means the edge weighting function is not static and may vary over time. Subsequently, many speed up techniques developed for static routing problems like bi-directional search cannot be applied \parencite{Delling2009}. 
+Finding a route with minimal heat exposure can be modelled as time-dependent routing problem, where the edge weighting function is not static and instead may vary over time. Subsequently, many speed up techniques developed for static routing problems like bi-directional search cannot simply be applied \parencite{Delling2009}. 
 
-To find a optimal route we have to model the road network in an appropriate manner. In the following, we are representing the road network as undirected graph $G=(V,E,w_d,w_h)$, where $V$ is the set of vertices or nodes (e.g. junctions) and $E\subseteq V\times V$ is the set of edges (e.g. road segments) each connecting a pair of nodes. Furthermore $w_d: E \to \mathbb{R}_{\geq 0}$ and $w_h: E \times T \to \mathbb{R}_{\geq 0}$ are to edge weighting function, at which:
+Below, we are representing the road network as undirected graph $G=(V,E,w_d,w_h)$, where $V$ is the set of vertices or nodes (e.g. junctions) and $E\subseteq V\times V$ is the set of edges (e.g. road segments) each connecting a pair of nodes. Furthermore $w_d: E \to \mathbb{R}_{\geq 0}$ and $w_h: E \times T \to \mathbb{R}_{\geq 0}$ are to edge weighting function, at which:
 \begin{itemize}
 	\item $w_d(e)$ is the length of the edge $e$, and
 	\item $w_h(e, t)$ is the heat exposure of edge $e$ at time $t$.
 \end{itemize}   
-Below, a path $p$ from node $v_0$ to node $v_k$ starting a time $t_0$ is denoted as sequence of edge time pairs $((e_{v_0v_1},t_0),(e_{v_1v_2},t_1),\dots, (e_{v_{k-1}v_k},t_{k-1}))$, where $t_i$ is the time at which node $v_i$ is leaved. The weight of an edge is fixed at the time the traversing of the edge is started \parencite[the so-called frozen link model,][]{Orda1990}. The point in time $t_i$ can be computed as follows: $t_i := t_{i-1} + t_{walk}(e_{v_{i-1},v_i})$ where $t_{walk}(e_{v_{i-1},v_i})$ is the time needed by a pedestrian to traverse the edge $e_{v_{i-1},v_i}$. The starting time $t_0$ is ether given or set to $0$. 
+Hereafter, a path $p$ from node $v_0$ to node $v_k$ starting a time $t_0$ is denoted as sequence of edge time pairs $((e_{v_0v_1},t_0),(e_{v_1v_2},t_1),\dots, (e_{v_{k-1}v_k},t_{k-1}))$, where $t_i$ is the time at which node $v_i$ is leaved. The weight of an edge is fixed at the time the traversing of the edge is started \parencite[the so-called frozen link model,][]{Orda1990}. The time $t_i$ can be computed as follows: $t_i := t_{i-1} + t_{walk}(e_{v_{i-1},v_i})$ where $t_{walk}(e_{v_{i-1},v_i})$ is the time needed by a pedestrian to traverse the edge $e_{v_{i-1},v_i}$. The starting time $t_0$ is ether given or set to $0$. 
 
 To compute the weight of a path $w_h(p)$ the following formula can be applied:
 	\begin{equation}\label{eq:path-weight}
-		w_h(p) := \sum_{(t,e) \in p} w_h(e, t).
+		w_h(p) := \sum_{(e,t) \in p} w_h(e, t).
 	\end{equation}
 Those means we are looking for the path $p^*$ from a node $v$ to a node $u$ that has the minimal weight of all possible path from $v$ to $u$. Below, we are using $w_h(p, t)$ to denote the weight of the path $p$ starting at time $t$. 
 
-The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) or non-passing property is not fulfilled \parencite{Orda1990}. A edge weighting function $w: E \times T \to \mathbb{R}_{\geq 0}$ stratifies the FIFO property if for all edges $e=(u,v)\in E$ and all points in time $t, t' \in T$ with $t \leq t'$ the following in-equation is met \parencite{Ahn1991}:
+The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) property is not fulfilled \parencite{Orda1990}. An edge weighting function $w: E \times T \to \mathbb{R}_{\geq 0}$ stratifies the FIFO or non-passing property if for all edges $e=(u,v)\in E$ and all points in time $t, t' \in T$ with $t \leq t'$ the following in-equation is met \parencite{Ahn1991}:
    \begin{equation}\label{eq:fifo-property}
   	 t + w(e,t) \leq w(e, t').
    \end{equation}
-In other words, a weighting function $w$ fulfils the FIFO property when the numerator (change of the edge weight)decreases not faster than the denominator (change in actual time) increases, i.e. the slope of the weighting function is greater or equals to $-1$ \parencite{Kaufman1993}.  
+In other words, a weighting function $w$ fulfils the FIFO property if the numerator (change of the edge weight)decreases not faster than the denominator (change in actual time) increases, i.e. the slope of the weighting function is greater or equals to $-1$ \parencite{Kaufman1993}.  
 
-Usually, we cannot assume that $w_h$ fulfils the FIFO property, because the function most of the time depends on the air temperature and the decrease of the air temperature can be more than $-1$. Since, most people are not willing to wait at a node as well, finding a route with a minimal heat exposure is $\mathcal{NP}$-hard. Therefore, 
-hereafter the edge weighting is frozen at the starting time $t_0$ so that we have static route planning problem a classic algorithms like  \citeauthor{Dijkstra1959}'s algorithm \parencite{Dijkstra1959} can be applied. 
+Usually, we cannot assume that $w_h$ fulfils the FIFO property, because the function most of the time depends on the air temperature and the air temperature can decrease more than $-1$ over time. Since, most people are not willing to wait at a node as well, finding a route with a minimal heat exposure is $\mathcal{NP}$-hard. Therefore, 
+hereafter the edge weighting is frozen at the starting time $t_0$ so that we have static route planning problem and classic algorithms like  \citeauthor{Dijkstra1959}'s algorithm \parencite{Dijkstra1959} can be applied. 
 
 \subsubsection{The Edge Weighting Function}
 
-\begin{itemize}
-	\item general modelling (distance times heat exposure), $T^{comfort}$ as lower bound
-	\item mapping raster cells to road network
-	\item explain data available (or should that be part of )
-\end{itemize}
+Above, we described the basic modelling of the routing problem. To find a route with a minimal heat exposure it is key to define the edge weighting function in an appropriated way. Those we need meteorological data (like air temperature and relative humidity) in a sufficient spatial and temporal resolution so we can leverage the variation in that data to find a route with minimal heat exposure. On basis of those meteorological data we can obtain the thermal comfort values as a time-dependent raster $H(t) = \left(h_{ij}(t)\right)$, where $h_{ij}(t)$ denotes the thermal comfort value in raster cell $c_{ij}$ at time $t \in T$. As we are only interested in heat exposure, we assume that values of $h$ below a certain threshold $h_{comfort}$ \parencite[e.g. \SI{20}{\celsius}, cf.][]{Jendritzky2000} are considered comfortable and do not have a negative impact on the health. If the value of raster cell is bellow $h_{comfort}$ it is simply set to that value.
+
+\begin{figure}
+	\centering
+	\includegraphics{figures/raster-edge-mapping-standalone}
+	\caption[Example for the raster to edge mapping]{An 
+		example for the raster to edge mapping.}
+	\label{fig:raster-edge-mapping}
+\end{figure}
+
+
+But it is not sufficient to only take the actual thermal comfort value  in to account, we also must consider the time a person is exposed to the heat. Below, we assume that the time of exposure is proportional to the length of the edge $w_d$ \parencite[following][]{Hasenfratz2015}. Since an edge can cross multiple raster cell we use the value of the intersected raster cell and weighting it with the length of the intersection (see example in figure \ref{fig:raster-edge-mapping}). So finally, we can obtain the weighing function  $w_h$ as follows \parencite[cf.][]{Hasenfratz2015}: 
+ 	\begin{equation}\label{eq:edge-weight}
+ 		w_h(e, t) := \sum_{c \in Intersec(e)} d_c \cdot h_c(t),
+ 	\end{equation}
+where $Intersec(e)$ is the set of raster cells intersected by the edge $e$, $d_c$ the length of the intersection of $e$ with raster cell $c$ and $h_c(t)$ the value of raster cell $c$ at time $t$.
+
+%TODO
+%\begin{itemize}
+%	\item general modelling (distance times heat exposure), $T^{comfort}$ as lower bound
+%	\item mapping raster cells to road network
+%	\item explain data available (or should that be part of )
+%\end{itemize}
  
  \subsection{Finding the Optimal Point in Time}
  
- \begin{itemize}
- 	\item general idea
- 	\item the three steps to find the optimal point in time
- 		\begin{enumerate}
- 			\item Nearby search
- 			\item Find the optimal point in time
- 			\item ranking by the optimal value found in step 2
- 		\end{enumerate}
- \end{itemize}
+ Apart from selecting a route with minimal heat exposure the risk of heat stress in the everyday life (e.g. go shopping in a supermarket) can massively be reduced by selecting the appropriate time for this action. That's because usually, the heat exposure is highest at middays and significant lower in the morning or evening.
  
- \subsubsection{Modelling as a Optimization Problem}
+ We are proposing an approach for a decision support tool that can help to find an optimal time for a certain type of location defined by a search criteria, that is within a specified radius. To obtain that goal, we are using three steps:
  
- \begin{itemize}
- 	\item modelling of the constrains
- 	\item objective function (only the modelling where the heat exposure of the path is used as objective function, equation 4.5 in the master thesis)
- \end{itemize}
+ \begin{enumerate}
+ 	\item \label{itm:nearby-search} Perform a nearby search originating from a given starting point $s$  (e.g. address or GPS coordinates) to find all locations $L$ that fulfils a certain search criteria (e.g. is supermarket or pharmacy)  within a specified radius $r$ (e.g. \SI{500}{\meter}).
+ 	
+ 	\item \label{itm:optimal-time} For each location $\ell \in L$ found in step \ref{itm:nearby-search}, determine the point in time $t^*$ with the lowest heat exposure. 
+ 	
+ 	\item \label{itm:ranking} Create a ranking of the locations in $L$ based on the minimum heat exposure found in step \ref{itm:optimal-time}, so that the location with the lowest heat exposure has rank 1, that with second lowest rank 2 and so on.
+ \end{enumerate} 
+
+The steps \ref{itm:nearby-search} and \ref{itm:ranking} are not very complicated, so we are focusing on step \ref{itm:optimal-time}. 
+
+\subsubsection{Modelling as a Optimization Problem} 
+
+If we are search for the optimal point in time for a location $\ell$ we should consider certain constrains like the opening hours $[t_{open}(\ell),t_{close}(\ell)]$ of a location $\ell \in L$. As the objective function to minimize we are using the heat exposure of the optimal path between the starting point $s$ and a location $\ell$ as proposed above. Those, finding the point in time with the minimal heat exposure means to minimize the following objective function $h(t, \ell)$:
+	\begin{equation}\label{eq:objective-funtion}
+		h(\ell, t) = w_h(p^*, t) = \min_{p\in P_{s\ell}} w_h(p, t) = \min_{p\in P_{s\ell}} \sum_{(e, t') \in p} w_h(e, t'),
+	\end{equation}
+where $P_{s\ell}$ is the set of all possible paths from $s$ to $\ell$ and $w_h(p, t)$ is the accumulated edge weight of all edges in $p$ at starting time $t$ and $w_h$ is the edge weighting function from equation \eqref{eq:edge-weight}. 
+
+Now we can formulate the problem to find a time with minimal heat exposure as a optimization problem with constrains:
+\begin{subequations}
+	\label{eq:optimal-time}
+	\begin{alignat}{2}
+	&\min_{t \in T} h(\ell, t) && \label{eq:optimal-time:of} \\
+	%& \text{s.t.} &  t_{open}(\ell)  \leq t &\leq t_{close}(\ell) \label{eq:optimal-time:oh} \\
+	&\text{s.t.} & t & \geq t_{open}(\ell)-t_{walk}(\ell, t) \label{eq:optimal-time:twm}\\
+	&	& t & \leq   t_{close}(\ell)-(t_{walk}(\ell, t)+t_{buff}(\ell))	\label{eq:optimal-time:twe}\\
+	&	&  t & \geq t_{earliest} \label{eq:optimal-time:te} \\
+	&	&  t & \leq t_{latest} \label{eq:optimal-time:tl} \\
+	&  & t  & \geq t_{now} \label{eq:optimal-time:tn} 
+	\end{alignat}
+\end{subequations}
+
+Note, that the location $\ell$ is fixed, the selection of the location with lowest heat exposure is performed later in step \ref{itm:ranking}.  The objective function \eqref{eq:optimal-time:of} is the one defined in equation \eqref{eq:objective-funtion}. The constrains \eqref{eq:optimal-time:twm} and \eqref{eq:optimal-time:twe} are  basically ensuring that the location is arrived within the opening hours. We must ensure that the shop can be reached before it closes, therefore we have to consider the time needed to walk to the location $\ell$ ($t_{walk}(\ell)$) as well as the time needed perform e.g. the purchase ($t_{buff}(\ell)$). On the other hand, it can make sense to start early in the morning  arrive the location $\ell$ just in time when its opening, so we are subtracting the walking time from the opening time. The constrains \eqref{eq:optimal-time:te} and \eqref{eq:optimal-time:tl} are an earliest respectively latest point in time desired by the user and can be omitted. Finally, the last constrain  \eqref{eq:optimal-time:tn}  guarantees, that the optimal point in time is in the future. Another thing to notice is, that the walking time $t_{walk}(\ell, t)$ depends on the starting time $t$, because conditional on the time a different (properly longer) optimal route can be selected.
 
  \subsubsection{Optimization}
  
- \begin{itemize}
- 	\item transformation of the constrains to a lower and a upper bound
- 	\item introduction of a penalty term if the constrains are violated
- 	\item simple optimization algorithms without derivatives like Brent's method can be applied   
- \end{itemize}
+ Now we must find the optimal point in time for each location $\ell \in L$. Since, not necessarily derivations for the objective function $h(\ell, t)$ exits, we have to use optimization method without derivatives like Brent's method \parencite{Brent2002}. Brent's  method is a procedure for the approximation of local optima within an interval $[x_1, x_2]$, which usually converges faster than the bisection method \parencite{Press1992}.
+ 
+ In order to apply Brent's method, we have to transform the constrains \eqref{eq:optimal-time:twm} -- \eqref{eq:optimal-time:tn} to a lower and upper limit of an interval.  The constrains \eqref{eq:optimal-time:twm}, \eqref{eq:optimal-time:te} and \eqref{eq:optimal-time:tn} can  be easily converted to a lower limit, as follows: 
+  	\begin{equation}\label{eq:lower-limit}
+  		t_{lower}(\ell, t) = \min\left\lbrace  t_{open}(\ell)-t_{walk}(\ell, t), t_{now}, t_{earliest} \right\rbrace.
+  	\end{equation}
+  Alike, we can transform the constrains \eqref{eq:optimal-time:twe} and \eqref{eq:optimal-time:tl} to an upper limit:
+  	\begin{equation}\label{eq:upper-limit}
+  		t_{upper}(\ell, t) = \min\left\lbrace  t_{close}(\ell)- (t_{walk}(\ell, t) + t_{buff}(\ell)), t_{latest} \right\rbrace.
+  	\end{equation}
+ It's simple to recognize, that the interval $[t_{lower}(\ell, t), t_{upper}(\ell, t)]$ preserves the constrains from the optimization problem defined above in equation \eqref{eq:optimal-time}.  
+ 
+ However, Brent's method can still not be applied, since the lower and upper limit of the interval is depending on the starting time $t$ and therefore not static as required for Brent's method. That's the case because depending on the starting time a different route with minimal heat exposure, can be selected. As solution to avoid this problem we are proposing the introduction of a penalty term:
+ \begin{equation}
+ \label{eq:optimal-time-penality}
+ h'(t,\ell) = \begin{cases}
+ h(t,\ell) & \text{if }t_{open}(\ell)-t_{walk}(\ell,t) \leq t \leq  t_{close}(\ell)-(t_{walk}(\ell,t)+t_{buff}(\ell)),\\
+ h(t,\ell)  + c & \text{otherwise,}
+ \end{cases}
+ \end{equation}
+ where $c$ is a large constant such that $h(t,\ell) + c$ is never selected as optimal solution, if the constrains are violated. Now, we can use the walking time $t_{walk}^{shortest}(\ell)$  for the shortest route for the lower and upper limit. Finally, we can formulate the optimization problem for Brent's method as follows:
+ \begin{subequations}
+ 	\label{eq:brent-optimization-problem}
+ 	\begin{alignat}{2}
+ 	&\min_{t \in T} h'\ell, t) && \\
+ 	&\text{s.t.} & t & \geq \min\left\lbrace  t_{open}(\ell)-t_{walk}^{shortest}(\ell), t_{now}, t_{earliest} \right\rbrace \\
+ 	& & t &\leq \min\left\lbrace  t_{close}(\ell)- \left(t_{walk}^{shortest}(\ell) + t_{buff}(\ell)\right), t_{latest} \right\rbrace.
+ 	\end{alignat}
+ \end{subequations}
+Now we can use Brent's method to find for each location $\ell$ the optimal point in time $t^*$. To avoid, that the Brent optimizer is trapped in a local optimum, its executed several times with different random start points.

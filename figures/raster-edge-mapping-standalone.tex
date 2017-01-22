@@ -1,0 +1,39 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{decorations.pathreplacing}
+%\usepgfplotslibrary{external}
+%\tikzexternalize
+
+% http://tex.stackexchange.com/questions/205549/getting-pictures-from-tikzit-to-latex-and-seeing-them-in-pdf-format
+%% -------------------------------------- Declare the layers
+\pgfdeclarelayer{nodelayer}
+\pgfdeclarelayer{edgelayer}
+\pgfdeclarelayer{gridlayer}
+\pgfsetlayers{gridlayer,edgelayer,nodelayer,main}
+
+%% -------------------------------------- Declare the styles
+\tikzstyle{node}=[circle,draw=black,line width=0.8 pt]
+\tikzstyle{smallnode}=[circle,fill=white,draw=black,scale=.75,inner sep=1pt]
+\tikzstyle{uvnode}=[circle,draw=none,inner sep=0pt,minimum size=0pt]
+\tikzstyle{smalllabel}=[draw=none,scale=.75,inner sep=1pt]
+
+\tikzstyle{towernode}=[circle,draw=black,scale=.75,inner sep=2pt]
+\tikzstyle{virtualnode}=[circle,draw=black,dashed,scale=.75,inner sep=2pt]
+\tikzstyle{pillarnode}=[circle,fill=black,draw=black,scale=.75,inner sep=2pt]
+
+\tikzstyle{directededge}=[->, thick]
+\tikzstyle{undirectededge}=[]
+\tikzstyle{undirectededgethick}=[thick]
+ \tikzstyle{virtualedge}=[thick,dashed]
+
+
+%\tikzset{node/.style={thick,shape=circle}}
+%\tikzset{label/.style={}}
+%\tikzset{edge/.style={->,thick}}
+%% --------------------------------------------------------
+
+
+\begin{document}
+\input{raster-edge-mapping.tex}
+\end{document}
