@@ -105,7 +105,7 @@ Note, that the location $\ell$ is fixed, the selection of the location with lowe
  
  In order to apply Brent's method, we have to transform the constrains \eqref{eq:optimal-time:twm} -- \eqref{eq:optimal-time:tn} to a lower and upper limit of an interval.  The constrains \eqref{eq:optimal-time:twm}, \eqref{eq:optimal-time:te} and \eqref{eq:optimal-time:tn} can  be easily converted to a lower limit, as follows: 
   	\begin{equation}\label{eq:lower-limit}
-  		t_{lower}(\ell, t) = \min\left\lbrace  t_{open}(\ell)-t_{walk}(\ell, t), t_{now}, t_{earliest} \right\rbrace.
+  		t_{lower}(\ell, t) = \max\left\lbrace  t_{open}(\ell)-t_{walk}(\ell, t), t_{now}, t_{earliest} \right\rbrace.
   	\end{equation}
   Alike, we can transform the constrains \eqref{eq:optimal-time:twe} and \eqref{eq:optimal-time:tl} to an upper limit:
   	\begin{equation}\label{eq:upper-limit}
@@ -126,7 +126,7 @@ Note, that the location $\ell$ is fixed, the selection of the location with lowe
  	\label{eq:brent-optimization-problem}
  	\begin{alignat}{2}
  	&\min_{t \in T} h'\ell, t) && \\
- 	&\text{s.t.} & t & \geq \min\left\lbrace  t_{open}(\ell)-t_{walk}^{shortest}(\ell), t_{now}, t_{earliest} \right\rbrace \\
+ 	&\text{s.t.} & t & \geq \max\left\lbrace  t_{open}(\ell)-t_{walk}^{shortest}(\ell), t_{now}, t_{earliest} \right\rbrace \\
  	& & t &\leq \min\left\lbrace  t_{close}(\ell)- \left(t_{walk}^{shortest}(\ell) + t_{buff}(\ell)\right), t_{latest} \right\rbrace.
  	\end{alignat}
  \end{subequations}
