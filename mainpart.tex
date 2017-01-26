@@ -28,12 +28,12 @@ The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed 
    \begin{equation}\label{eq:fifo-property}
   	 t + w(e,t) \leq w(e, t').
    \end{equation}
-In other words, a weighting function $w$ fulfils the FIFO property if the numerator (change of the edge weight)decreases not faster than the denominator (change in actual time) increases, i.e. the slope of the weighting function is greater or equals to $-1$ \parencite{Kaufman1993}.  
+In other words, a weighting function $w$ fulfils the FIFO property if the numerator (change of the edge weight) decreases not faster than the denominator (change in actual time) increases, i.e. the slope of the weighting function is greater or equals to $-1$ \parencite{Kaufman1993}.  
 
 Usually, we cannot assume that $w_h$ fulfils the FIFO property, because the function most of the time depends on the air temperature and the air temperature can decrease more than $-1$ over time. Since, most people are not willing to wait at a node as well, finding a route with a minimal heat exposure is $\mathcal{NP}$-hard. Therefore, 
 hereafter the edge weighting is frozen at the starting time $t_0$ so that we have static route planning problem and classic algorithms like  \citeauthor{Dijkstra1959}'s algorithm \parencite{Dijkstra1959} can be applied. 
 
-\subsubsection{The Edge Weighting Function}
+\subsubsection{The Edge Weighting Function \label{sec:edge-weighting}}
 
 Above, we described the basic modelling of the routing problem. To find a route with a minimal heat exposure it is key to define the edge weighting function in an appropriated way. Those we need meteorological data (like air temperature and relative humidity) in a sufficient spatial and temporal resolution so we can leverage the variation in that data to find a route with minimal heat exposure. On basis of those meteorological data we can obtain the thermal comfort values as a time-dependent raster $H(t) = \left(h_{ij}(t)\right)$, where $h_{ij}(t)$ denotes the thermal comfort value in raster cell $c_{ij}$ at time $t \in T$. As we are only interested in heat exposure, we assume that values of $h$ below a certain threshold $h_{comfort}$ \parencite[e.g. \SI{20}{\celsius}, cf.][]{Jendritzky2000} are considered comfortable and do not have a negative impact on the health. If the value of raster cell is bellow $h_{comfort}$ it is simply set to that value.
 
@@ -59,7 +59,7 @@ where $Intersec(e)$ is the set of raster cells intersected by the edge $e$, $d_c
 %	\item explain data available (or should that be part of )
 %\end{itemize}
  
- \subsection{Finding the Optimal Point in Time}
+ \subsection{Finding the Optimal Point in Time \label{sec:find-optimal-time}}
  
  Apart from selecting a route with minimal heat exposure the risk of heat stress in the everyday life (e.g. go shopping in a supermarket) can massively be reduced by selecting the appropriate time for this action. That's because usually, the heat exposure is highest at middays and significant lower in the morning or evening.
  
