@@ -10,10 +10,9 @@ For temperature data we use the hourly air temperature and relative humidity val
 
 
 \subsection{Data Preparation}
+First, the OSM data set is cropped to the evaluated area. Afterwards, all ways tagged with \verb|highway|, \verb|railway=platform| or \verb|public_transport=platform| are extracted to obtain the road network.
 
-Before extracting the road network, we cropped the OSM data set to the evaluated area. Afterwards, all ways tagged with \verb|highway|, \verb|railway=platform| or \verb|public_transport=platform| have been extracted.
-
-To compute the edge weights as described above in section \ref{sec:edge-weighting} we need to make some assumptions. That's because the weather data that we've used lacked either an appropriate spatial resolution or the required temporal resolution. We assume that the actual spatial variation of the temperature conforms with the spatial variation of the thermal scans (deviation from the mean value). For the relative humidity we assume a constant value over the study area. For the temporal variation, we assume that the temporal variation in the examined area correspond to the temporal variation measure at the weather station. We apply the morning scan to timestamps between  00:00 and 11:59 and the evening scan between 12:00 and 23:59.
+To compute the edge weights as described above in section \ref{sec:edge-weighting} we need to make some assumptions. That's because the weather data that we use lack either an appropriate spatial resolution or the required temporal resolution. We assume that the actual spatial variation of the temperature conforms with the spatial variation of the thermal scans (deviation from the mean value). For the relative humidity we assume a constant value over the study area. For the temporal variation, we assume that the temporal variation in the examined area correspond to the temporal variation measure at the weather station. We apply the morning scan to timestamps between  00:00 and 11:59 and the evening scan between 12:00 and 23:59.
 
 We compute the air temperature at time $t\in T$ for the raster cell $c_{ij}$ as follows:
 \begin{equation}
@@ -41,7 +40,7 @@ As optimization algorithm, we used implementation of Brent's method in the Apach
 
 \begin{table}
 	\centering
-	\begin{tabular}{lp{8cm}lcc}
+	\begin{tabular}{lp{9.25cm}lcc}
 		\hline
 		& & temperature & heat index \\
 		\hline
@@ -100,7 +99,7 @@ As a reference solution, we use the closest location found during the nearby sea
 
 \begin{table}
 	\centering
-	\begin{tabular}{lp{8cm}lcc}
+	\begin{tabular}{lp{9.25cm}lcc}
 		\hline
 		& & temperature & heat index \\
 		\hline
@@ -119,5 +118,5 @@ As a reference solution, we use the closest location found during the nearby sea
 
 The results for the combined approach are given in table \ref{tab:results-optimal-time}. Here the average reduction compared to the routing approach is significantly higher. This is expected as the heat exposure can vary strongly with the time of the day. 
 
-In the example given in figure \ref{fig:optimaltime-route-example} the \emph{temperature} weighting selected the same pharmacy and optimal point in time (9:27) as the reference solution. Contrary the \emph{heatindex} routing selected a different pharmacy which is \SI{476.6}{\meter} instead of  \SI{434.5}{\meter} a way from the starting point. Additional the method found a different optimal time (19:39) and those the heat exposure could be reduced by \SI{18.49}{\percent}.  
+In the example given in figure \ref{fig:optimaltime-route-example} the \emph{temperature} weighting selected the same pharmacy and optimal point in time (9:27) as the reference solution. Contrary the \emph{heatindex} weighting selected a different pharmacy which is \SI{476.6}{\meter} instead of  \SI{434.5}{\meter} a way from the starting point. Additional the method found a different optimal time (19:39) and those the heat exposure could be reduced by \SI{18.49}{\percent}.  
  
