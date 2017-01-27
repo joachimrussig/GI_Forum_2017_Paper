@@ -30,9 +30,9 @@ For the implementation of the routing we used the GraphHopper framework for Java
 
 To find an optimal point in time we used the procedure described in section \ref{sec:find-optimal-time}. 
 
-For the nearby search,  we're using a list of selected OSM tags like \verb|shop=supermarket| or \verb|amenity=pharmacy| as a search criteria. We also only considering locations which have opening hours specified (via the \verb|opening_hours| tag). Additionally, only locations which are in a defined radius around the starting point are considered, at this we used the direct distance (“as the crow flies”). To reduce the computation effort a maximum number of results $k$ can be specified.
+For the nearby search, we  use a list of selected OSM tags like \verb|shop=supermarket| or \verb|amenity=pharmacy| as a search criteria. We also only considering locations which have opening hours specified (via the \verb|opening_hours| tag). Additionally, only locations which are in a defined radius around the starting point are considered, at this we use the direct distance (“as the crow flies”). To reduce the computation effort a maximum number of results $k$ can be specified.
 
-As optimization algorithm, we used implementation of Brent's method in the Apache Commons Mathematics Library \parencite{ASF2016} with 10 random start points to reduce the risk that only a local optimum is found.
+As optimization algorithm, we use the implementation of Brent's method in the Apache Commons Mathematics Library \parencite{ASF2016} with 10 random start points to reduce the risk that only a local optimum is found.
 
 \subsection{Results}
 
