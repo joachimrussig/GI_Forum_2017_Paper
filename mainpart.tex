@@ -24,12 +24,12 @@ To compute the weight of a path $w_h(p)$ the following formula can be applied:
 	\end{equation}
 Those means we are looking for the path $p^*$ from a node $v$ to a node $u$ that has the minimal weight of all possible path from $v$ to $u$. Below, we are using $w_h(p, t)$ to denote the weight of the path $p$ starting at time $t$. 
 
-The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) property is not fulfilled \parencite{Orda1990}. An edge weighting function $w: E \times T \to \mathbb{R}_{\geq 0}$ stratifies the FIFO or non-passing property if for all edges $e=(u,v)\in E$ and all points in time $t, t' \in T$ with $t \leq t'$ the following in-equation is met \parencite{Ahn1991}:
-   \begin{equation}\label{eq:fifo-property}
-  	 t + w(e,t) \leq w(e, t').
-   \end{equation}
-In other words, a weighting function $w$ fulfils the FIFO property if the numerator (change of the edge weight) decreases not faster than the denominator (change in actual time) increases, i.e. the slope of the weighting function is greater or equals to $-1$ \parencite{Kaufman1993}.  
-
+The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) property is not fulfilled \parencite{Orda1990}. 
+%An edge weighting function $w: E \times T \to \mathbb{R}_{\geq 0}$ stratifies the FIFO or non-passing property if for all edges $e=(u,v)\in E$ and all points in time $t, t' \in T$ with $t \leq t'$ the following in-equation is met \parencite{Ahn1991}:
+%   \begin{equation}\label{eq:fifo-property}
+%  	 t + w(e,t) \leq w(e, t').
+%   \end{equation}
+%In other words, a weighting function $w$ fulfils the FIFO property if the numerator (change of the edge weight) decreases not faster than the denominator (change in actual time) increases, i.e. the slope of the weighting function is greater or equals to $-1$ \parencite{Kaufman1993}.  
 Usually, we cannot assume that $w_h$ fulfils the FIFO property, because the function most of the time depends on the air temperature and the air temperature can decrease more than $-1$ over time. Since, most people are not willing to wait at a node as well, finding a route with a minimal heat exposure is $\mathcal{NP}$-hard. Therefore, 
 hereafter the edge weighting is frozen at the starting time $t_0$ so that we have static route planning problem and classic algorithms like  \citeauthor{Dijkstra1959}'s algorithm \parencite{Dijkstra1959} can be applied. 
 
