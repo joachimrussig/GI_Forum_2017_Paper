@@ -3,35 +3,29 @@
 
 \section{Introduction}
 
-Heat is one of several natural hazards our society is faced with today. High temperatures cannot only lead to a discomfort, e.g. because of increased sweating, it can also have serious negative effects on the health. 
+Heat is an important factor to human health and comfort. High temperatures cannot only lead to a discomfort,such as sweating, it also has serious negative effects on the health as well as on the ability to work. 
 
 In numerous studies an increase in both mortality and
-morbidity has been associated with a high ambient temperature \parencite{Basu2009}. For example an excess of mortality during the 2003 heat wave in Europe have been reported for several European countries \parencite{Kovats2004}. 
+morbidity has been associated with a high ambient temperature \parencite{Basu2009}. The most well known example in recent history is the 2003 heat wave in Europe. In France alone 19490 heat related deaths were to be mourned, an excess
+mortality of 60\% for the whole country. In Paris the excess mortality reached 
+142\% \parencite{Trobine2008death}. 
 
-Certain groups are especially vulnerable to heat stress such as older people or people with health problems like high blood pressure,  heart, kidney, liver or
-metabolic diseases  \parencite{Ebi2004,Huebler2007}. For patients with multiple sclerosis an increased body temperature can lead to a worsening of their symptoms \parencite{Davis2010}.
+Certain groups are especially vulnerable to heat stress such as older people or people with health problems \parencite{Ebi2004,Huebler2007}. For patients with multiple sclerosis an increased body temperature can lead to a worsening of their symptoms \parencite{Davis2010}.
 
-Developments like the ageing of society, the increasing urbanisation and the climate change is making the adaptation to heat stress danger more and more important. For instance due to the tendency that a rising number of people is moving into the cities, the urban heat island effect (UHI) is gaining more importance in the future. Because of the UHI effect an urban area can be  \SIrange{8}{12}{\celsius} warmer than the rural areas \parencite{Prashad2014}. This is caused by the fact, that urban materials such as asphalt, concrete, and bricks are storing the energy from the sun and releasing it later to their surrounding \parencite{Prashad2014}. 
+Developments like the ageing of society, the increasing urbanisation and the climate change is making the adaptation to heat stress danger more and more important. Due to the tendency that a rising number of people is moving into the cities \parencite{department2014world}, the urban heat island effect (UHI) is gaining more importance in the future. The UHI effect states that an urban area can be  \SIrange{8}{12}{\celsius} warmer than the rural areas \parencite{Prashad2014}. This increased temperature can be caused by several facts. One example is that urban materials such as asphalt, concrete, and bricks are storing the energy from the sun and releasing it later to their surrounding \parencite{Prashad2014}. 
 
-There are several steps that can been taken to reduce the risk of heat stress. For instance urban planning measures like more green areas or construction measures like air conditioning or building insulation. Another important step can be the implementation of a heat warning system that enables authorise, hospitals, or retirement homes to take the appropriate actions in time \parencite{Ebi2004}.
+There are several possiblities that can been taken to reduce the heat stress. These range from urban planning measures to the implementation of heat warning systems \parencite{Ebi2004}. But these steps are only available on large scale projects. Individuals can reduce their heat stress by adapting their everyday behaviour. In this work we present a two step approach to help individuals in doing so.
 
-Additionally, by adapting their everyday behaviour everybody can reduce their risk by themselves. For instance, activities should be performed in the morning or evening when the temperatures are lower.
+In a city, most typical activities are in walking distance. These can range from going to a grocery store to the visit of a doctor. And while these activities can not be omitted, it is possible to use different routes or change the time when they are conducted. In doing so, one can easily reduce the heat stress without any negative impact on the quality of life. 
 
-\subsection{Goals}
+In this paper we use this reasoning into a two step approach to help individuals reduce their heat stress. First, we apply a time dependent routing algorithm to compute the optimal path in regard to the heat stress. This algorithm is then used to determine the optimal point in time to conduct typical everyday activities. 
 
-The goal of our work is to help people adapting their everyday behaviour to reduce their heat stress risk. As a use case were looking at everyday actions like go shopping in a supermarket or pharmacy. Those actions usually cannot simply be omitted because there are necessary to challenge the everyday life. Since more and more people are living in cities and do not necessarily own a car, we are focusing on pedestrians. 
 
-One possibility to reduce the heat stress is to select the appropriate time to go shopping, because usually in the morning and evening the heat exposure is lower than middays. So, it can make sense to select a shop that is further from the starting point but has longer opening hours.   
 
-Another possibility to reduce the heat stress risk is the selection of an appropriate route between the start and the destination. For instance, a longer route with more shadows and green areas can have a lower heat exposure than a shorter route and so that selecting the longer route can reduce the heat stress risk. 
    
 \subsection{Related Work} 
 
-Several research projects have considered environmental factors for pedestrian routing in the paste. The AffectRoute routing algorithm proposed by \textcite{Huang2014} for instance takes the affective responses to the environment into account, e.g. to find a route that a person considers safer.  \textcite{Sharker2012} are proposing a method to find a health optimal route, considering several environmental factors like complexity of the walking trail (slope etc.) and weather (only “Good”, “Fair” or “Bad”). A method to find a route with a minimal pollution exposure has been proposed by \textcite{Hasenfratz2015} in his PhD thesis.
-
-The NaviComf framework for pedestrian routing proposed by \citeauthor{Dang2012} (\citeyear{Dang2012}, \citeyear{Dang2013}), enables to improve the comfort considering environmental factors varying over time. The proposed framework uses a multi-factor cost model for the evaluation of the route and enables them to consider heterogeneous environmental information from multi-modal sensors like air temperature and humidity. To find a optimal route \textcite{Dang2013} are proposing three different algorithms,  a bounded depth-first search algorithm, an adjustable dynamic planning algorithm and a heuristic particle planning algorithm. As a sample application, the authors implemented a routing app for thermal comfort navigation. The meteorological used for this sample application have been collected using a network of 40 micro-climate sensor nodes which detected air temperature and relative humidity. 
-
-\subsection{Thermal Comfort}
+\subsubsection{Thermal Comfort}
 
 To achieve our goals, we need a measure to describe the influence of heat on the human body.  In this context, the term thermal comfort plays a key role, which describes climatic conditions consider comfortable, i.e. neither to warm nor to cold.
 
@@ -44,14 +38,12 @@ wind velocity and mean radiant temperature of the surroundings \parencite{Matzar
 
 Because we only had air temperature and the relative humidity at hand we used \citeauthor{Steadman1979}'s heat index \parencite{Steadman1979} and, as a simple comparison measure, the air temperature. To compute an approximation of the heat index we used the formula published by \textcite[77]{Stull2011}. 
 
+\subsubsection{Time Dependent Routing}
+Several research projects have considered environmental factors for pedestrian routing in the paste. The AffectRoute routing algorithm proposed by \textcite{Huang2014} for instance takes the affective responses to the environment into account, e.g. to find a route that a person considers safer.  \textcite{Sharker2012} are proposing a method to find a health optimal route, considering several environmental factors like complexity of the walking trail (slope etc.) and weather (only “Good”, “Fair” or “Bad”). A method to find a route with a minimal pollution exposure has been proposed by \textcite{Hasenfratz2015} in his PhD thesis.
 
-\subsection{Contribution}
+The NaviComf framework for pedestrian routing proposed by \citeauthor{Dang2012} (\citeyear{Dang2012}, \citeyear{Dang2013}), enables to improve the comfort considering environmental factors varying over time. The proposed framework uses a multi-factor cost model for the evaluation of the route and enables them to consider heterogeneous environmental information from multi-modal
+ sensors like air temperature and humidity. To find a optimal route \textcite{Dang2013} are proposing three different algorithms,  a bounded depth-first search algorithm, an adjustable dynamic planning algorithm and a heuristic particle planning algorithm. As a sample application, the authors implemented a routing app for thermal comfort navigation. The meteorological used for this sample application have been collected using a network of 40 micro-climate sensor nodes which detected air temperature and relative humidity. 
 
-In this paper we are making contributions to finding a route with minimal heat stress as well as to find a point in time with a minimal heat exposure. 
 
+%TODO anpassen
 To find a route with minimal heat exposure we are using a different approach then \citeauthor{Dang2012} (\citeyear{Dang2012}, \citeyear{Dang2013}). First of all we didn't have data of a mobile sensor network at hand, instead we're used the remote sensing data of thermal scanner flight as well as the data of weather station. Another contribution is the comparison of different thermal comfort measures like air temperature and heat index. A further difference is the application of static routing algorithm instead of dynamic one as used by \citeauthor{Dang2012}.
-
-Another impotent contribution of this paper is the finding of a point in time with a minimal heat exposure. The approach which we are proposing allows to find a place and a point in time within a given search radius with a minimal heat exposure, considering constrains like the opening hours of the feasible places. Thereby we're taking the heat exposure as well as the distance to the respective places in to account.   
-
-
-
