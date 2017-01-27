@@ -24,7 +24,7 @@ To compute the weight of a path $w_h(p)$ the following formula can be applied:
 	\end{equation}
 Those means we are looking for the path $p^*$ from a node $v$ to a node $u$ that has the minimal weight of all possible path from $v$ to $u$. Below, we are using $w_h(p, t)$ to denote the weight of the path $p$ starting at time $t$. 
 
-The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) property is not fulfilled \parencite{Orda1990}. 
+The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) property is not fulfilled \parencite{Orda1990,Ahn1991}. 
 %An edge weighting function $w: E \times T \to \mathbb{R}_{\geq 0}$ stratifies the FIFO or non-passing property if for all edges $e=(u,v)\in E$ and all points in time $t, t' \in T$ with $t \leq t'$ the following in-equation is met \parencite{Ahn1991}:
 %   \begin{equation}\label{eq:fifo-property}
 %  	 t + w(e,t) \leq w(e, t').
