@@ -69,6 +69,30 @@ If a shop is not opened over lunch, then for every time window (e.g. 9:00--13:00
 
 To evaluate the routing, we've selected 1000 random pairs of start and destinations points form the examined  area and 10 random dates from the period of 1 June to 31 August 2015. For each of the start destination pairs and each date we've performed the evaluation at 7:00, 11:00, 15:00, 19:00 and 23:00, so overall we had $50\,000$ samples. As edge weighting we've used the air temperature (equation \eqref{eq:edge-weight-temperature}, \emph{temperature})  and the heat index \eqref{eq:edge-weight-heatindex}, \emph{heatindex}). For comparison, we computed for each sample the shortest path. 
 
+\begin{table}
+	\centering
+	\begin{tabular}{llcc}
+		\hline
+		 & temperature & heat index \\
+		 \hline
+		 \multicolumn{4}{l}{Reduction of heat exposure (\% of cases) }   \\
+		& overall  & \SI{79.70}{\percent} & \SI{80.53}{\percent}  \\
+		& more then \SI{5}{\percent} & \SI{42.72}{\percent} & \SI{45.11}{\percent} \\
+		& more then \SI{10}{\percent} & \SI{13.81}{\percent} & \SI{16.07}{\percent} \\
+		 \multicolumn{4}{l}{Reduction of heat exposure compared to the shortest route}  \\
+		& average  & \SI{4.63}{\percent} & \SI{4.69}{\percent}  \\
+		& maximum  & \SI{25.97}{\percent} & \SI{26.17 }{\percent}  \\
+		 \multicolumn{4}{l}{Reduction of relative heat exposure}  \\
+		 	& average  & \SI{2.12}{\celsius} & \SI{2.32}{\celsius}  \\
+		 \multicolumn{4}{l}{Increase of distance}  \\
+		 & \% of cases & \SI{93.81}{\percent} & \SI{94.11}{\percent}  \\
+		 & maximum  & \SI{5.59}{\percent} & \SI{5.76}{\percent}  \\
+		 
+		  
+		 
+		\hline
+	\end{tabular}
+\end{table}
 
 The heat exposure compared to the shortest route could be reduced in \SI{79.70}{\percent} (\emph{temperature}) respectively  \SI{80.53}{\percent} of the cases. In \SI{42.72}{\percent} (\emph{temperature}; \emph{heatindex}: \SI{45.11}{\percent}) the heat exposure could be reduced by more than \SI{5}{\percent} and in \SI{13.81}{\percent} (\SI{16.07}{\percent}) of the cases by more the \SI{10}{\percent}. At best the heat exposure could be reduced by up to \SI{25.97}{\percent} (\emph{temperature}) respectively  \SI{26.17 }{\percent}. On average the relative heat exposure could be reduce by \SI{2.12}{\celsius} (\emph{temperature}) and \SI{ 2.32}{\celsius} (\emph{heatindex}). The relative heat exposure is the edge weight $w_{T_a}$ or $w_{HI}$ of the path normed on the path length $w_d$ and therefore a with the distance weighted average of the heat exposure. In \SI{93.81}{\percent} (\emph{heatindex}: \SI{94.11}{\percent}) of the cases a longer route was selected. On average the route with minimal heat exposure was \SI{5.59}{\percent} (\emph{temperature}) respectively  \SI{5.76}{\percent} (\emph{heatindex}) longer. 
 
