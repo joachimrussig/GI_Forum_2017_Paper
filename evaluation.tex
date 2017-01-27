@@ -3,15 +3,9 @@
 
 \section{Evaluation}
 
-In the previous section, we gave a short introduction in the theoretical basics of our approach to minimize heat exposure. Below, we are giving a short overview of the data sets we had used, the implementation of our prototype as well as the result of the evaluation.    
-
-\subsection{Data Sets}
-
-\subsubsection{Map Data}
+\subsection{Data Sets \label{sec:data-sets}}
 
 As map data, we've used the data of the OpenStreetMap (OSM) project \parencite{OSMF2016}. Apart from the road network the data set contains for instance points of interest like shops (supermarkets, bakeries, etc.) or amenities (pharmacies,  toilets, etc.). Many of them are tagged with useful information e.g. on the accessibility (e.g. \verb|wheelchair=yes|) or their opening hours (e.g. \verb|opening_hours="MoSa 07:00-24:00; Su,PH off"|).
-
-\subsubsection{Weather Data}
 
 We used two different kind of weather data: the hourly air temperature and relative humidity values of a weather station alongside with to data sets of a thermal scanner flight.  
 
@@ -20,10 +14,10 @@ The hourly air temperature and relative humidity values are originating from the
 The other kind of data that we've used, have been remote sensing data of a thermal scanner flight provided by the Nachbarschaftsverband Karlsruhe (NVK). The data set consists of two scans, on recorded in the morning and on recorded in the evening of the 26 September 2008. The data are covering an area of  $\SI{25 805}{\meter} \times \SI{39 555}{\meter}$ (EW NS) an have a resolution of $5\,161 \times 7\,911$  pixels (pixel size \SI{}{\meter}). The measured surface temperature is in the range of \SIrange{-1.7}{18.3}{\celsius} (morning and evening). Before we used the data we rectified them using thin plate splines and cropped them to the same areas as the OSM data. The average surface temperature of the cropped data sets has been \SI{4.18}{\celsius} (morning) respectively \SI{11.24}{\celsius} evening.  
 
 
-\subsection{Implementation}
+\subsection{Data Preparation}
 
 \subsubsection{Routing}
-Before we extracted the road network from the OSM data set, we cropped the OSM data set to the evaluated area. Afterwards all  ways tagged with \verb|highway|, \verb|railway=platform| or \verb|public_transport=platform| have been extracted.
+Before extracting, we cropped the OSM data set to the evaluated area. Afterwards, all ways tagged with \verb|highway|, \verb|railway=platform| or \verb|public_transport=platform| have been extracted.
 
 For the actual implementation of the routing we used the GraphHopper framework for Java \parencite{GraphHopper2016,GraphHopper2016a}. In GraphHopper the edge weighting could be adapted for our needs. Additional the frame work provides implementation of many routing algorithms like Dijkstra's algorithm or the $A^*$ algorithm. Since we are only interested in pedestrian routing, we've used the \verb|FOOT| routing profile predefined in GraphHopper, which e.g. avoids certain highways like motorways.  
 
@@ -39,17 +33,18 @@ T_{a}^{station}(t) + \delta_{ij}^{evening} & \text{if $12 \leq t < 24$,}
 \end{equation}
 where $T_{a}^{station}(t)$ is the air temperature measured at the weather station at time $t$ and $\delta^{morning}_{ij}$ respectively  $\delta^{evening}_{ij}$ is the deviation of the raster cell $c_{ij}$ from the mean of all raster cells from the morning respectively evening scan.
 
-Using the formula for the air temperature in equation \eqref{eq:derived-temperature} and the formula for the edge weight defined in equation \eqref{eq:edge-weight} we can now compute the edge weight using the air temperature respectively  the Steadman's heat index as measure for thermal comfort.  For the computation of the edge weight using the air temperature, the following formula can be applied:
-\begin{align}
-\label{eq:edge-weight-temperature}
-w_{T_a}(e,t)& = \sum_{c \in Intersec(e)} d_c \cdot T_a(t, c),
-\end{align}
-and respectively for Steadman's heat index:
-\begin{align}
-\label{eq:edge-weight-heatindex}
-w_{HI}(e,t)& = \sum_{c \in Intersec(e)} d_c \cdot T_{HI}\left(T_a(t, c), RH(t)\right),
-\end{align} 
-where $T_{HI}$ is Steadman's heat index and $RH(t)$ is the relative humidity measured at the weather station at time $t$. To compute an approximation of Steadman's heat index we used the formula published by \textcite[77]{Stull2011}. Since the heat index is only defined for an air temperature between \SI{20}{\celsius} and \SI{50}{\celsius} we've used the air temperature as a fallback, if the air temperature was not within that range. Additionally, should be noted that if the air temperature respectively the heat index dropped in a raster cell below a comfort threshold $T_a^{comfort}$ or $T_{HI}^{comfort}$, then that comfort value has been used, because temperature below this threshold are not considered harmful. For both  $T_a^{comfort}$ or $T_{HI}^{comfort}$ we used \SI{20}{\celsius} as a threshold because temperatures above can cause a light heat stress \parencite{Staiger2011}.
+%Using the formula for the air temperature in equation \eqref{eq:derived-temperature} and the formula for the edge weight defined in equation \eqref{eq:edge-weight} we can now compute the edge weight using the air temperature respectively  the Steadman's heat index as measure for thermal comfort.  For the computation of the edge weight using the air temperature, the following formula can be applied:
+%\begin{align}
+%\label{eq:edge-weight-temperature}
+%w_{T_a}(e,t)& = \sum_{c \in Intersec(e)} d_c \cdot T_a(t, c),
+%\end{align}
+%and respectively for Steadman's heat index:
+%\begin{align}
+%\label{eq:edge-weight-heatindex}
+%w_{HI}(e,t)& = \sum_{c \in Intersec(e)} d_c \cdot T_{HI}\left(T_a(t, c), RH(t)\right),
+%\end{align} 
+%where $T_{HI}$ is Steadman's heat index and $RH(t)$ is the relative humidity measured at the weather station at time $t$. 
+To compute an approximation of Steadman's heat index we used the formula published by \textcite[77]{Stull2011}. Since the heat index is only defined for an air temperature between \SI{20}{\celsius} and \SI{50}{\celsius} we've used the air temperature as a fallback, if the air temperature was not within that range. Additionally, should be noted that if the air temperature respectively the heat index dropped in a raster cell below a comfort threshold $T_a^{comfort}$ or $T_{HI}^{comfort}$, then that comfort value has been used, because temperature below this threshold are not considered harmful. For both  $T_a^{comfort}$ or $T_{HI}^{comfort}$ we used \SI{20}{\celsius} as a threshold because temperatures above can cause a light heat stress \parencite{Staiger2011}.
 
 \subsubsection{Optimal Time}
 
