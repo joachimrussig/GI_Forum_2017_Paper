@@ -71,30 +71,30 @@ To evaluate the routing, we've selected 1000 random pairs of start and destinati
 
 \begin{table}
 	\centering
-	\begin{tabular}{llcc}
+	\begin{tabular}{lp{8cm}lcc}
 		\hline
-		 & temperature & heat index \\
+		 & & temperature & heat index \\
 		 \hline
 		 \multicolumn{4}{l}{Reduction of heat exposure (\% of cases) }   \\
 		& overall  & \SI{79.70}{\percent} & \SI{80.53}{\percent}  \\
 		& more then \SI{5}{\percent} & \SI{42.72}{\percent} & \SI{45.11}{\percent} \\
 		& more then \SI{10}{\percent} & \SI{13.81}{\percent} & \SI{16.07}{\percent} \\
-		 \multicolumn{4}{l}{Reduction of heat exposure compared to the shortest route}  \\
+		 \multicolumn{4}{l}{Reduction of heat exposure}  \\
 		& average  & \SI{4.63}{\percent} & \SI{4.69}{\percent}  \\
 		& maximum  & \SI{25.97}{\percent} & \SI{26.17 }{\percent}  \\
-		 \multicolumn{4}{l}{Reduction of relative heat exposure}  \\
-		 	& average  & \SI{2.12}{\celsius} & \SI{2.32}{\celsius}  \\
-		 \multicolumn{4}{l}{Increase of distance}  \\
-		 & \% of cases & \SI{93.81}{\percent} & \SI{94.11}{\percent}  \\
-		 & maximum  & \SI{5.59}{\percent} & \SI{5.76}{\percent}  \\
-		 
-		  
-		 
-		\hline
+		\multicolumn{4}{l}{Increase of distance}  \\
+		& \% of cases & \SI{93.81}{\percent} & \SI{94.11}{\percent}  \\
+		& average & \SI{5.59}{\percent} & \SI{5.76}{\percent}  \\
+		 \multicolumn{4}{l}{Reduction of relative heat exposure ($w_h / w_d$)}  \\
+		 & average  & \SI{2.12}{\celsius} & \SI{2.32}{\celsius}  \\
+		 \hline
 	\end{tabular}
+	\caption{Overview of the results of the routing approach. The values are relative to the shortest route. The relative heat exposure is a with the distance weighted average of the thermal comfort measure. That means, on average the heat exposure was about \SI{2}{\celsius} lower compared to the shortest route. \label{tab:results-routing}}
 \end{table}
 
-The heat exposure compared to the shortest route could be reduced in \SI{79.70}{\percent} (\emph{temperature}) respectively  \SI{80.53}{\percent} of the cases. In \SI{42.72}{\percent} (\emph{temperature}; \emph{heatindex}: \SI{45.11}{\percent}) the heat exposure could be reduced by more than \SI{5}{\percent} and in \SI{13.81}{\percent} (\SI{16.07}{\percent}) of the cases by more the \SI{10}{\percent}. At best the heat exposure could be reduced by up to \SI{25.97}{\percent} (\emph{temperature}) respectively  \SI{26.17 }{\percent}. On average the relative heat exposure could be reduce by \SI{2.12}{\celsius} (\emph{temperature}) and \SI{ 2.32}{\celsius} (\emph{heatindex}). The relative heat exposure is the edge weight $w_{T_a}$ or $w_{HI}$ of the path normed on the path length $w_d$ and therefore a with the distance weighted average of the heat exposure. In \SI{93.81}{\percent} (\emph{heatindex}: \SI{94.11}{\percent}) of the cases a longer route was selected. On average the route with minimal heat exposure was \SI{5.59}{\percent} (\emph{temperature}) respectively  \SI{5.76}{\percent} (\emph{heatindex}) longer. 
+An overview of our results is given in table \ref{tab:results-routing}.
+
+%The heat exposure compared to the shortest route could be reduced in \SI{79.70}{\percent} (\emph{temperature}) respectively  \SI{80.53}{\percent} of the cases. In \SI{42.72}{\percent} (\emph{temperature}; \emph{heatindex}: \SI{45.11}{\percent}) the heat exposure could be reduced by more than \SI{5}{\percent} and in \SI{13.81}{\percent} (\SI{16.07}{\percent}) of the cases by more the \SI{10}{\percent}. At best the heat exposure could be reduced by up to \SI{25.97}{\percent} (\emph{temperature}) respectively  \SI{26.17 }{\percent}. On average the relative heat exposure could be reduce by \SI{2.12}{\celsius} (\emph{temperature}) and \SI{ 2.32}{\celsius} (\emph{heatindex}). The relative heat exposure is the edge weight $w_{T_a}$ or $w_{HI}$ of the path normed on the path length $w_d$ and therefore a with the distance weighted average of the heat exposure. In \SI{93.81}{\percent} (\emph{heatindex}: \SI{94.11}{\percent}) of the cases a longer route was selected. On average the route with minimal heat exposure was \SI{5.59}{\percent} (\emph{temperature}) respectively  \SI{5.76}{\percent} (\emph{heatindex}) longer. 
 
 An example can be seen in figure \ref{fig:route-example}. In this example the heat exposure could be reduced by \SI{17.64}{\percent} (\emph{temperature}) and \SI{18.76}{\percent} (\emph{heatindex}), while at the same time the distance only increased by  \SI{0.53}{\percent}.
 
@@ -110,6 +110,25 @@ An example can be seen in figure \ref{fig:route-example}. In this example the he
 For the evaluation of optimal time finding procedure we selected 750 random start points. One of the following four search criteria has been assigned to each of the start points at random: supermarket, bakery, chemist or pharmacy. For each of the start points a random start time $t_{now}$ has been selected from the period of 8:00 to 20:00. The radius has been set to \SI{1000}{\meter} for all start points and the maximum number of results has been set to 5. Additionally, for all start points a time buffer $t_{buff}$ of 15 minutes has been assumed. 
 
 As a reference solution, we've used the closest location found during the nearby search, computed the shortest path from the starting point to this location and evaluated the heat exposure at time $t_{now}$. The evaluation is performed only for the locations with rank 1, because those have the lowest heat exposure.
+
+\begin{table}
+	\centering
+	\begin{tabular}{lp{8cm}lcc}
+		\hline
+		& & temperature & heat index \\
+		\hline
+		\multicolumn{4}{l}{Reduction of heat exposure}   \\
+		& \% of cases  & \SI{68.43}{\percent} & \SI{71.08}{\percent}  \\
+		\multicolumn{4}{l}{Reduction of heat exposure}  \\
+		& average  & \SI{8.09}{\percent} & \SI{7.73}{\percent}  \\
+		& maximum  & \SI{62.29}{\percent} & \SI{62.88}{\percent}  \\
+		\multicolumn{4}{l}{Increase of distance}  \\
+		& average  & \SI{4.60}{\percent}  & \SI{4.72}{\percent}  \\
+		\hline
+	\end{tabular}
+	\caption{Overview of the results of the combined approach each compared with the reference solution.  \label{tab:results-optima-time}}
+\end{table}
+
 
 The heat exposure could be reduced in \SI{68.43}{\percent} (\emph{temperature}) respectively \SI{71.08}{\percent} by up to \SI{62.29}{\percent} (\SI{62.88}{\percent}). On average the heat exposure could be reduced by \SI{8.09}{\percent} (\emph{temperature}) and \SI{7.73}{\percent}. The average increase of the distance was \SI{4.60}{\percent} and \SI{4.72}{\percent}.
 
