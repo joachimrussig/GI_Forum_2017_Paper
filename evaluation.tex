@@ -17,11 +17,11 @@ The other kind of data that we've used, have been remote sensing data of a therm
 \subsection{Data Preparation}
 
 \subsubsection{Routing}
-Before extracting, we cropped the OSM data set to the evaluated area. Afterwards, all ways tagged with \verb|highway|, \verb|railway=platform| or \verb|public_transport=platform| have been extracted.
+Before extracting the road network, we cropped the OSM data set to the evaluated area. Afterwards, all ways tagged with \verb|highway|, \verb|railway=platform| or \verb|public_transport=platform| have been extracted.
 
-For the actual implementation of the routing we used the GraphHopper framework for Java \parencite{GraphHopper2016,GraphHopper2016a}. In GraphHopper the edge weighting could be adapted for our needs. Additional the frame work provides implementation of many routing algorithms like Dijkstra's algorithm or the $A^*$ algorithm. Since we are only interested in pedestrian routing, we've used the \verb|FOOT| routing profile predefined in GraphHopper, which e.g. avoids certain highways like motorways.  
+ %In GraphHopper the edge weighting could be adapted for our needs. Additional the frame work provides implementation of many routing algorithms like Dijkstra's algorithm or the $A^*$ algorithm. Since we are only interested in pedestrian routing, we've used the \verb|FOOT| routing profile predefined in GraphHopper, which e.g. avoids certain highways like motorways.  
 
-To compute the edge weights as described above in section \ref{sec:edge-weighting} we need to make some assumptions. That's because the weather data that we've used lacked either an appropriate spatial resolution (data of only one weather station)  or the required temporal resolution (only two thermal scans have been available). So, we've assumed that the actual spatial variation of the temperature conforms with the spatial variation of the thermal scans (deviation  from the mean value). Because for the relative humidity no further data have been available, we assumed that there subject of any spatial variation. For the temporal variation, we've assumed that the temporal variation in the examined area correspond to the temporal variation measure at the weather station in Rheinstetten.  Additional we've used the thermal scan recorded in the morning for the time between 00:00 and 11:59 and the scan recorded in the evening for the time between 12:00 and 23:59.
+To compute the edge weights as described above in section \ref{sec:edge-weighting} we need to make some assumptions. That's because the weather data that we've used lacked either an appropriate spatial resolution (data of one weather station)  or the required temporal resolution (only two thermal scans). So, we've assumed that the actual spatial variation of the temperature conforms with the spatial variation of the thermal scans (deviation from the mean value). Because for the relative humidity no further data have been available, we assumed that there subject of any spatial variation. For the temporal variation, we've assumed that the temporal variation in the examined area correspond to the temporal variation measure at the weather station in Rheinstetten.  Additional we've used the thermal scan recorded in the morning for the time between 00:00 and 11:59 and the scan recorded in the evening for the time between 12:00 and 23:59.
 
 So, we computed the air temperature at time $t\in T$ for the raster cell $c_{ij}$ as follows:
 \begin{equation}
@@ -33,18 +33,9 @@ T_{a}^{station}(t) + \delta_{ij}^{evening} & \text{if $12 \leq t < 24$,}
 \end{equation}
 where $T_{a}^{station}(t)$ is the air temperature measured at the weather station at time $t$ and $\delta^{morning}_{ij}$ respectively  $\delta^{evening}_{ij}$ is the deviation of the raster cell $c_{ij}$ from the mean of all raster cells from the morning respectively evening scan.
 
-%Using the formula for the air temperature in equation \eqref{eq:derived-temperature} and the formula for the edge weight defined in equation \eqref{eq:edge-weight} we can now compute the edge weight using the air temperature respectively  the Steadman's heat index as measure for thermal comfort.  For the computation of the edge weight using the air temperature, the following formula can be applied:
-%\begin{align}
-%\label{eq:edge-weight-temperature}
-%w_{T_a}(e,t)& = \sum_{c \in Intersec(e)} d_c \cdot T_a(t, c),
-%\end{align}
-%and respectively for Steadman's heat index:
-%\begin{align}
-%\label{eq:edge-weight-heatindex}
-%w_{HI}(e,t)& = \sum_{c \in Intersec(e)} d_c \cdot T_{HI}\left(T_a(t, c), RH(t)\right),
-%\end{align} 
-%where $T_{HI}$ is Steadman's heat index and $RH(t)$ is the relative humidity measured at the weather station at time $t$. 
 To compute an approximation of Steadman's heat index we used the formula published by \textcite[77]{Stull2011}. Since the heat index is only defined for an air temperature between \SI{20}{\celsius} and \SI{50}{\celsius} we've used the air temperature as a fallback, if the air temperature was not within that range. Additionally, should be noted that if the air temperature respectively the heat index dropped in a raster cell below a comfort threshold $T_a^{comfort}$ or $T_{HI}^{comfort}$, then that comfort value has been used, because temperature below this threshold are not considered harmful. For both  $T_a^{comfort}$ or $T_{HI}^{comfort}$ we used \SI{20}{\celsius} as a threshold because temperatures above can cause a light heat stress \parencite{Staiger2011}.
+
+For the actual implementation of the routing we used the GraphHopper framework for Java \parencite{GraphHopper2016,GraphHopper2016a}.
 
 \subsubsection{Optimal Time}
 
@@ -56,7 +47,7 @@ As optimization algorithm, we used implementation of Brent's method in the Apach
 
 If a shop is not opened over lunch, then for every time window (e.g. 9:00--13:00 and 14:00--18:30) an optimal time is determined and accordingly the solution with lowest heat exposure is used.
 
-\subsection{Evaluation}
+\subsection{Results}
 
 \subsubsection{Routing}
 
