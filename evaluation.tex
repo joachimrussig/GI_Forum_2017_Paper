@@ -84,7 +84,7 @@ To evaluate the routing, we've selected 1000 random pairs of start and destinati
 		& maximum  & \SI{25.97}{\percent} & \SI{26.17 }{\percent}  \\
 		\multicolumn{4}{l}{Increase of distance}  \\
 		& \% of cases & \SI{93.81}{\percent} & \SI{94.11}{\percent}  \\
-		& maximum  & \SI{5.59}{\percent} & \SI{5.76}{\percent}  \\
+		& average & \SI{5.59}{\percent} & \SI{5.76}{\percent}  \\
 		 \multicolumn{4}{l}{Reduction of relative heat exposure ($w_d / w_h$)}  \\
 		 & average  & \SI{2.12}{\celsius} & \SI{2.32}{\celsius}  \\
 		 \hline
@@ -110,6 +110,25 @@ An example can be seen in figure \ref{fig:route-example}. In this example the he
 For the evaluation of optimal time finding procedure we selected 750 random start points. One of the following four search criteria has been assigned to each of the start points at random: supermarket, bakery, chemist or pharmacy. For each of the start points a random start time $t_{now}$ has been selected from the period of 8:00 to 20:00. The radius has been set to \SI{1000}{\meter} for all start points and the maximum number of results has been set to 5. Additionally, for all start points a time buffer $t_{buff}$ of 15 minutes has been assumed. 
 
 As a reference solution, we've used the closest location found during the nearby search, computed the shortest path from the starting point to this location and evaluated the heat exposure at time $t_{now}$. The evaluation is performed only for the locations with rank 1, because those have the lowest heat exposure.
+
+\begin{table}
+	\centering
+	\begin{tabular}{lp{8cm}lcc}
+		\hline
+		& & temperature & heat index \\
+		\hline
+		\multicolumn{4}{l}{Reduction of heat exposure}   \\
+		& \% of cases  & \SI{68.43}{\percent} & \SI{71.08}{\percent}  \\
+		\multicolumn{4}{l}{Reduction of heat exposure}  \\
+		& average  & \SI{8.09}{\percent} & \SI{7.73}{\percent}  \\
+		& maximum  & \SI{62.29}{\percent} & \SI{62.88}{\percent}  \\
+		\multicolumn{4}{l}{Increase of distance}  \\
+		& average  & \SI{4.60}{\percent}  & \SI{4.72}{\percent}  \\
+		\hline
+	\end{tabular}
+	\caption{Overview of the results of the combined approach each compared with the reference solution.  \label{tab:results-optima-time}}
+\end{table}
+
 
 The heat exposure could be reduced in \SI{68.43}{\percent} (\emph{temperature}) respectively \SI{71.08}{\percent} by up to \SI{62.29}{\percent} (\SI{62.88}{\percent}). On average the heat exposure could be reduced by \SI{8.09}{\percent} (\emph{temperature}) and \SI{7.73}{\percent}. The average increase of the distance was \SI{4.60}{\percent} and \SI{4.72}{\percent}.
 
