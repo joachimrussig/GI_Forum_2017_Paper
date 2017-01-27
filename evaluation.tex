@@ -3,15 +3,10 @@
 
 \section{Evaluation}
 
-\subsection{Data Sets \label{sec:data-sets}}
+\subsection{Data \label{sec:data-sets}}
 
-As map data, we've used the data of the OpenStreetMap (OSM) project \parencite{OSMF2016}. Apart from the road network the data set contains for instance points of interest like shops (supermarkets, bakeries, etc.) or amenities (pharmacies,  toilets, etc.). Many of them are tagged with useful information e.g. on the accessibility (e.g. \verb|wheelchair=yes|) or their opening hours (e.g. \verb|opening_hours="MoSa 07:00-24:00; Su,PH off"|).
-
-We used two different kind of weather data: the hourly air temperature and relative humidity values of a weather station alongside with to data sets of a thermal scanner flight.  
-
-The hourly air temperature and relative humidity values are originating from the weather station of the German Weather Service (Deutscher Wetterdienste, DWD) in Rheinstetten near Karlsruhe \parencite{DWD2016}. Because only the hourly values have been available, the intermediate values haven been obtained using linear interpolation of the two adjacent values.
-
-The other kind of data that we've used, have been remote sensing data of a thermal scanner flight provided by the Nachbarschaftsverband Karlsruhe (NVK). The data set consists of two scans, on recorded in the morning and on recorded in the evening of the 26 September 2008. The data are covering an area of  $\SI{25 805}{\meter} \times \SI{39 555}{\meter}$ (EW NS) an have a resolution of $5\,161 \times 7\,911$  pixels (pixel size \SI{}{\meter}). The measured surface temperature is in the range of \SIrange{-1.7}{18.3}{\celsius} (morning and evening). Before we used the data we rectified them using thin plate splines and cropped them to the same areas as the OSM data. The average surface temperature of the cropped data sets has been \SI{4.18}{\celsius} (morning) respectively \SI{11.24}{\celsius} evening.  
+As map data, we use the OpenStreetMap (OSM) project \parencite{OSMF2016}. 
+For temperature data we use the hourly air temperature and relative humidity values are originating from the weather station of the German Weather Service (Deutscher Wetterdienste, DWD) in Rheinstetten near Karlsruhe \parencite{DWD2016}. For a finer spatial resolution we use remote sensing data of a thermal scanner flight provided by the Nachbarschaftsverband Karlsruhe (NVK). The data set consists of two scans, recorded in the morning and in the evening of the 26 September 2008. The data are covering an area of  $\SI{25 805}{\meter} \times \SI{39 555}{\meter}$ (EW NS) an have a resolution of $5\,161 \times 7\,911$  pixels. The measured surface temperature is in the range of \SIrange{-1.7}{18.3}{\celsius} (morning and evening). The average surface temperature of the cropped data sets has been \SI{4.18}{\celsius} (morning) respectively \SI{11.24}{\celsius} evening.  
 
 
 \subsection{Data Preparation}
