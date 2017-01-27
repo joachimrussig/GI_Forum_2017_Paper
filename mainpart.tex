@@ -3,7 +3,7 @@
 
 \section{Minimize Heat Exposure}
 
-We are presenting a two step approach to supported people to reduce their heat stress risk in their everyday life. First we are presenting an approach to find a route for pedestrian with a minimal heat exposure. On this basis, we show an approach to find a point in time with a minimal heat exposure, for instance to go shopping in a supermarket.
+We are presenting a two step approach to supported people to reduce their heat stress in their everyday life. First we are presenting an approach to find a route for pedestrian with a minimal heat exposure. On this basis, we show an approach to find a point in time with a minimal heat exposure, for instance to go shopping in a supermarket.
 
 \subsection{Finding a Route with Minimal Heat Exposure}
 
@@ -16,7 +16,7 @@ Below, we are representing the road network as undirected graph $G=(V,E,w_d,w_h)
 	\item $w_d(e)$ is the length of the edge $e$, and
 	\item $w_h(e, t)$ is the heat exposure of edge $e$ at time $t$.
 \end{itemize}   
-Hereafter, a path $p$ from node $v_0$ to node $v_k$ starting a time $t_0$ is denoted as sequence of edge time pairs $((e_{v_0v_1},t_0),(e_{v_1v_2},t_1),\dots, (e_{v_{k-1}v_k},t_{k-1}))$, where $t_i$ is the time at which node $v_i$ is leaved. The weight of an edge is fixed at the time the traversing of the edge is started \parencite[the so-called frozen link model,][]{Orda1990}. The time $t_i$ can be computed as follows: $t_i := t_{i-1} + t_{walk}(e_{v_{i-1},v_i})$ where $t_{walk}(e_{v_{i-1},v_i})$ is the time needed by a pedestrian to traverse the edge $e_{v_{i-1},v_i}$. The starting time $t_0$ is ether given or set to $0$. 
+Hereafter, a path $p$ from node $v_0$ to node $v_k$ starting a time $t_0$ is denoted as sequence of edge time pairs $((e_{v_0v_1},t_0),(e_{v_1v_2},t_1),\dots, (e_{v_{k-1}v_k},t_{k-1}))$, where $t_i$ is the time at which node $v_i$ is leaved. The weight of an edge is fixed at the time the traversing of the edge is started \parencite[the so-called frozen link model,][]{Orda1990}. The time $t_i$ can be computed as follows: $t_i := t_{i-1} + t_{walk}(e_{v_{i-1},v_i})$ where $t_{walk}(e_{v_{i-1},v_i})$ is the time needed by a pedestrian to traverse the edge $e_{v_{i-1},v_i}$. The starting time $t_0$ is ether given or set to~$0$. 
 
 To compute the weight of a path $w_h(p)$ the following formula can be applied:
 	\begin{equation}\label{eq:path-weight}
@@ -24,13 +24,9 @@ To compute the weight of a path $w_h(p)$ the following formula can be applied:
 	\end{equation}
 Those means we are looking for the path $p^*$ from a node $v$ to a node $u$ that has the minimal weight of all possible path from $v$ to $u$. Below, we are using $w_h(p, t)$ to denote the weight of the path $p$ starting at time $t$. 
 
-The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) property is not fulfilled \parencite{Orda1990,Kaufman1993}. 
-%An edge weighting function $w: E \times T \to \mathbb{R}_{\geq 0}$ stratifies the FIFO or non-passing property if for all edges $e=(u,v)\in E$ and all points in time $t, t' \in T$ with $t \leq t'$ the following in-equation is met \parencite{Ahn1991}:
-%   \begin{equation}\label{eq:fifo-property}
-%  	 t + w(e,t) \leq w(e, t').
-%   \end{equation}
-%In other words, a weighting function $w$ fulfils the FIFO property if the numerator (change of the edge weight) decreases not faster than the denominator (change in actual time) increases, i.e. the slope of the weighting function is greater or equals to $-1$ \parencite{Kaufman1993}.  
-Usually, we cannot assume that $w_h$ fulfils the FIFO property, because the function most of the time depends on the air temperature and the air temperature can decrease more than $-1$ over time. Since, most people are not willing to wait at a node as well, finding a route with a minimal heat exposure is $\mathcal{NP}$-hard. Therefore, 
+The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) property is not fulfilled \parencite{Orda1990}. A weighting function $w$ fulfils the FIFO property if the numerator (change of the edge weight) decreases not faster than the denominator (change in actual time) increases \parencite{Kaufman1993}. 
+
+Usually, we cannot assume that $w_h$ fulfils the FIFO property, because the function most of the time depends on the air temperature and the air temperature can decrease more than actual time increases. Since, most people are not willing to wait at a node as well, finding a route with a minimal heat exposure is $\mathcal{NP}$-hard. Therefore, 
 hereafter the edge weighting is frozen at the starting time $t_0$ so that we have static route planning problem and classic algorithms like  \citeauthor{Dijkstra1959}'s algorithm \parencite{Dijkstra1959} can be applied. 
 
 
@@ -45,7 +41,7 @@ hereafter the edge weighting is frozen at the starting time $t_0$ so that we hav
 	\label{fig:raster-edge-mapping}
 \end{figure}
 
-To find a route with a minimal heat exposure it is key to define the edge weighting function in an appropriated way. At this, it is not sufficient to only take the actual thermal comfort value  in to account, we also must consider the time a person is exposed to the heat. Below, we assume that the time of exposure is proportional to the length of the edge $w_d$ \parencite[following][]{Hasenfratz2015}. Based on this assumption we are defining the edge weighting function $w_h$ as follows \parencite[cf.][]{Hasenfratz2015}: 
+To find a route with a minimal heat exposure it is key to define the edge weighting function in an appropriated way. At this, it is not sufficient to only take the actual thermal comfort value  in to account, we also must consider the time a person is exposed to the heat. Below, we assume that the time of exposure is proportional to the length of the edge $w_d$ \parencite[following][]{Hasenfratz2015}. Based on this assumption we are defining the edge weighting function $w_h$ as follows: 
 \begin{equation}\label{eq:edge-weight}
 w_h(e, t) := \sum_{c \in Intersec(e)} d_c \cdot h_c(t).
 \end{equation}
