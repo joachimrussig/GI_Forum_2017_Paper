@@ -40,9 +40,9 @@ As optimization algorithm, we use the implementation of Brent's method in the Ap
 \begin{table}
 	\centering
 	\begin{tabular}{lp{9.25cm}lcc}
-		\hline
+		\toprule
 		& & temperature & heat index \\
-		\hline
+		\midrule
 		\multicolumn{4}{l}{Reduction of heat exposure (\% of cases) }   \\
 		& overall  & \SI{79.70}{\percent} & \SI{80.53}{\percent}  \\
 		& more then \SI{5}{\percent} & \SI{42.72}{\percent} & \SI{45.11}{\percent} \\
@@ -54,7 +54,7 @@ As optimization algorithm, we use the implementation of Brent's method in the Ap
 		& average & \SI{5.59}{\percent} & \SI{5.76}{\percent}  \\
 		\multicolumn{4}{l}{Reduction of relative heat exposure ($w_h / w_d$)}  \\
 		& average  & \SI{2.12}{\celsius} & \SI{2.32}{\celsius}  \\
-		\hline
+		\bottomrule
 	\end{tabular}
 	\caption{Overview routing results. The values are relative to the shortest route. \label{tab:results-routing}}
 \end{table}
@@ -91,9 +91,9 @@ In the example given in figure \ref{fig:route-example} the heat exposure could b
 \begin{table}
 	\centering
 	\begin{tabular}{lp{9.25cm}lcc}
-		\hline
+		\toprule
 		& & temperature & heat index \\
-		\hline
+		\midrule
 		\multicolumn{4}{l}{Reduction of heat exposure}   \\
 		& \% of cases  & \SI{68.43}{\percent} & \SI{71.08}{\percent}  \\
 		\multicolumn{4}{l}{Reduction of heat exposure}  \\
@@ -101,7 +101,7 @@ In the example given in figure \ref{fig:route-example} the heat exposure could b
 		& maximum  & \SI{62.29}{\percent} & \SI{62.88}{\percent}  \\
 		\multicolumn{4}{l}{Increase of distance}  \\
 		& average  & \SI{4.60}{\percent}  & \SI{4.72}{\percent}  \\
-		\hline
+		\bottomrule
 	\end{tabular}
 	\caption{Overview of the results of the combined approach each compared with the reference solution.  \label{tab:results-optimal-time}}
 \end{table}
