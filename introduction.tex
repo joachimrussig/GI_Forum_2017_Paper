@@ -7,7 +7,7 @@ Heat is an important factor to human health and comfort. High temperatures canno
 
 In numerous studies an increase in both mortality and
 morbidity has been associated with a high ambient temperature \parencite{Basu2009}. The most well known example in recent history is the 2003 heat wave in Europe. 
-Certain groups are especially vulnerable to heat stress such as older people or people with health problems \parencite{Ebi2004,Huebler2007}. For patients with multiple sclerosis an increased body temperature can lead to a worsening of their symptoms \parencite{Davis2010}.
+Certain groups are especially vulnerable to heat stress such as older people or people with health problems \parencite{Huebler2007}. For patients with multiple sclerosis an increased body temperature can lead to a worsening of their symptoms \parencite{Davis2010}.
 
 Developments like the ageing of society, the increasing urbanisation and the climate change is making the adaptation to heat stress danger more and more important. Due to the tendency that a rising number of people is moving into the cities, the urban heat island effect (UHI) is gaining more importance in the future. The UHI effect states that an urban area can be  \SIrange{8}{12}{\celsius} warmer than the rural areas \parencite{Prashad2014}. 
 
@@ -22,7 +22,7 @@ The impact of heat on the human body has long been a subject of study. Thermal c
 
 \textcite{Staiger1997} state that only a complete heat budget model of the human body is sufficient to make any reliable statements regarding the influence of heat on the body. Some well known indices that consider a complete human heat budget model are the following:
 \begin{inparaenum}[(1)]
-  \item \citeauthor{Steadman1979}'s heat index (\citeauthor{Steadman1979} \citeyear*{Steadman1979}\citeyear*{Steadman1979a}),
+  \item \citeauthor{Steadman1979}'s heat index (\citeauthor{Steadman1979} \citeyear*{Steadman1979}, \citeyear*{Steadman1979a}),
   \item the predicted mean vote (PMV) \parencite{Fanger1973},
   \item the perceived temperature \parencite{Staiger1997,Jendritzky2000},
   \item and the universal thermal climate Index UTCI \parencite{Jendritzky2010}.
@@ -36,10 +36,10 @@ For all these indices the following meteorological parameters are important:
 \item and mean radiant temperature of the surroundings \parencite{Matzarakis1999}.
 \end{inparaenum}
 
-Based on the availability of data, in this paper we will use \citeauthor{Steadman1979}'s heat index \parencite{Steadman1979} and, as a simple comparison measure, the air temperature. To compute an approximated equivalent temperature of the heat index we use the formula published by \textcite[77]{Stull2011}.  
+Based on the availability of data, in this paper we will use \citeauthor{Steadman1979}'s heat index \parencite{Steadman1979} and, as a simple comparison measure, the air temperature.
 
 \subsubsection{Environmental Dependent Routing}
-Several research projects have considered environmental factors for pedestrian routing in the paste. For instance, \textcite{Sharker2012} are proposing a method to find a health optimal route, considering several environmental factors like complexity of the walking trail (slope etc.) and weather (only “Good”, “Fair” or “Bad”). A method to find a route with a minimal pollution exposure has been proposed by \textcite{Hasenfratz2015} in his PhD thesis.
+Several research projects have considered environmental factors for pedestrian routing in the paste. For instance, \textcite{Sharker2012} are proposing a method to find a health optimal route, considering several environmental factors like complexity of the walking trail (slope etc.) and weather (only “Good”, “Fair” or “Bad”). A method to find a route with a minimal pollution exposure has been proposed by \textcite{Hasenfratz2015}.
 
 The NaviComf framework for pedestrian routing proposed by \textcite{Dang2013}, enables to improve the comfort considering environmental factors varying over time. The proposed framework uses a multi-factor cost model for the evaluation of the route and enables them to consider heterogeneous environmental information from multi-modal sensors like air temperature and humidity. To find a optimal route \textcite{Dang2013} are proposing three different algorithms,  a bounded depth-first search algorithm, an adjustable dynamic planning algorithm and a heuristic particle planning algorithm. As a sample application, the authors implemented a routing app for thermal comfort navigation. The meteorological used for this sample application have been collected using a network of 40 micro-climate sensor nodes which detected air temperature and relative humidity. 
 
