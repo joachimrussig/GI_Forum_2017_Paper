@@ -3,7 +3,7 @@
 
 \section{Minimize Heat Exposure}
 
-We are presenting a two step approach to supported people to reduce their heat stress in their everyday life. First we are presenting an approach to find a route for pedestrian with a minimal heat exposure. On this basis, we show an approach to find a point in time with a minimal heat exposure, for instance to go shopping in a supermarket.
+We are presenting a two-step approach to supported people to reduce their heat stress in their everyday life. First we are presenting an approach to find a route for pedestrian with a minimal heat exposure. On this basis, we show an approach to find a point in time with a minimal heat exposure, for instance to go shopping in a supermarket.
 
 \subsection{Finding a Route with Minimal Heat Exposure}
 
@@ -59,7 +59,7 @@ for the air temperature and respectively:
 \end{align}
 for the heat index. Here, $T_a(t,c)$ is the air temperature in raster cell $c$ at time $t \in T$, $RH(t)$ is the relative humidity at time $t$ and $T_{HI}$ is Steadman's heat index. How we obtained those values is described below in section \ref{sec:data-sets}.
 
- \subsection{Finding the Optimal Point in Time \label{sec:find-optimal-time}}
+ \subsection{Finding the Optimal Time \label{sec:find-optimal-time}}
  
  Apart from selecting a route with minimal heat exposure the risk of heat stress in the everyday life (e.g. go shopping in a supermarket) can massively be reduced by selecting the appropriate time for this action. That's because usually, the heat exposure is highest at middays and significant lower in the morning or evening.
  
@@ -113,7 +113,7 @@ Note, that the location $\ell$ is fixed, the selection of the location with lowe
   	\end{equation}
  It's simple to recognize, that the interval $[t_{lower}(\ell, t), t_{upper}(\ell, t)]$ preserves the constrains from the optimization problem defined above in equation \eqref{eq:optimal-time}.  
  
- However, Brent's method can still not be applied, since -- as outlined above in section \ref{sec:optimization} -- the lower and upper limit of the interval is depending on the starting time $t$ and therefore not static as required for Brent's method. As solution to avoid this problem we are proposing the introduction of a penalty term:
+ However, Brent's method can still not be applied, since -- as outlined above in section \ref{sec:optimization} -- the lower and upper limit of the interval is depending on the starting time $t$ and therefore, not static as required for Brent's method. As solution to avoid this problem we are proposing the introduction of a penalty term:
  \begin{equation}
  \label{eq:optimal-time-penality}
  h'(t,\ell) = \begin{cases}
