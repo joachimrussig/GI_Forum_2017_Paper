@@ -16,7 +16,7 @@ Below, we are representing the road network as undirected graph $G=(V,E,w_d,w_h)
 	\item $w_d(e)$ is the length of the edge $e$, and
 	\item $w_h(e, t)$ is the heat exposure of edge $e$ at time $t$.
 \end{itemize}   
-Hereafter, a path $p$ from node $v_0$ to node $v_k$ starting a time $t_0$ is denoted as sequence of edge time pairs $((e_{v_0v_1},t_0),(e_{v_1v_2},t_1),\dots, (e_{v_{k-1}v_k},t_{k-1}))$, where $t_i$ is the time at which node $v_i$ is leaved. The weight of an edge is fixed at the time the traversing of the edge is started \parencite[the so-called frozen link model,][]{Orda1990}. The time $t_i$ can be computed as follows: $t_i := t_{i-1} + t_{walk}(e_{v_{i-1},v_i})$ where $t_{walk}(e_{v_{i-1},v_i})$ is the time needed by a pedestrian to traverse the edge $e_{v_{i-1},v_i}$. The starting time $t_0$ is ether given or set to~$0$. 
+Hereafter, a path $p$ from node $v_0$ to node $v_k$ starting a time $t_0$ is denoted as sequence of edge-time pairs $((e_{v_0v_1},t_0),(e_{v_1v_2},t_1),\dots, (e_{v_{k-1}v_k},t_{k-1}))$, where $t_i$ is the time at which node $v_i$ is leaved. The weight of an edge is fixed at the time the traversing of the edge is started \parencite[the so-called frozen link model,][]{Orda1990}. The time $t_i$ can be computed as follows: $t_i := t_{i-1} + t_{walk}(e_{v_{i-1},v_i})$ where $t_{walk}(e_{v_{i-1},v_i})$ is the time needed by a pedestrian to traverse the edge $e_{v_{i-1},v_i}$. The starting time $t_0$ is ether given or set to~$0$. 
 
 To compute the weight of a path $w_h(p)$ the following formula can be applied:
 	\begin{equation}\label{eq:path-weight}
@@ -99,7 +99,7 @@ Using the objective function defined in equation \eqref{eq:objective-funtion}, w
 
 Note, that the location $\ell$ is fixed, the selection of the location with lowest heat exposure is performed later in step \ref{itm:ranking}. The constrains \eqref{eq:optimal-time:twm} and \eqref{eq:optimal-time:twe} are  basically ensuring that the location is arrived within the opening hours. We must ensure that the shop can be reached before it closes, therefore we have to consider the time needed to walk to the location $\ell$ ($t_{walk}(\ell)$) as well as the time needed to perform e.g. the purchase ($t_{buff}(\ell)$). On the other hand, it can make sense to start early in the morning  arrive the location $\ell$ just in time when its opening, so we are subtracting the walking time from the opening time. The constrains \eqref{eq:optimal-time:te} and \eqref{eq:optimal-time:tl} are an earliest respectively latest time desired by the user and can be omitted. Finally, the last constrain  \eqref{eq:optimal-time:tn}  guarantees, that the optimal time is in the future. Another thing to notice is, that the walking time $t_{walk}(\ell, t)$ depends on the starting time $t$, because conditional on the time a different (properly longer) optimal route can be selected.
 
- \subsubsection{Optimization}
+ \subsubsection{Optimization \label{sec:optimization}}
  
  To find the optimal time, we need a optimization method without derivatives, because the objective function $h(\ell, t)$ is not necessarily derivable. One such method is Brent's method \parencite{Brent2002}, a procedure for the approximation of local optima within an interval $[x_1, x_2]$.
  
@@ -113,7 +113,7 @@ Note, that the location $\ell$ is fixed, the selection of the location with lowe
   	\end{equation}
  It's simple to recognize, that the interval $[t_{lower}(\ell, t), t_{upper}(\ell, t)]$ preserves the constrains from the optimization problem defined above in equation \eqref{eq:optimal-time}.  
  
- However, Brent's method can still not be applied, since the lower and upper limit of the interval is depending on the starting time $t$ and therefore not static as required for Brent's method. That's the case because depending on the starting time a different route with minimal heat exposure, can be selected. As solution to avoid this problem we are proposing the introduction of a penalty term:
+ However, Brent's method can still not be applied, since -- as outlined above in section \ref{sec:optimization} -- the lower and upper limit of the interval is depending on the starting time $t$ and therefore not static as required for Brent's method. As solution to avoid this problem we are proposing the introduction of a penalty term:
  \begin{equation}
  \label{eq:optimal-time-penality}
  h'(t,\ell) = \begin{cases}

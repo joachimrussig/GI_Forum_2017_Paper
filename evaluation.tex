@@ -25,12 +25,11 @@ T_{a}^{station}(t) + \delta_{ij}^{evening} & \text{if $12 \leq t < 24$,}
 where $T_{a}^{station}(t)$ is the air temperature measured at the weather station at time $t$ and $\delta^{morning}_{ij}$ respectively  $\delta^{evening}_{ij}$ is the deviation of the raster cell $c_{ij}$ from the mean of all raster cells from the morning respectively evening scan.
 
 We compute an approximation of Steadman's heat index with \textcite[77]{Stull2011}. Since the heat index is only defined for an air temperature between \SI{20}{\celsius} and \SI{50}{\celsius} we use the air temperature as a fallback. If the air temperature dropps in a raster cell below a comfort threshold $T_a^{comfort}$ or $T_{HI}^{comfort}$, then that comfort value will be used, because temperature below this threshold are not considered harmful. 
+
 For the implementation of the routing we used the GraphHopper framework for Java \parencite{GraphHopper2016}.
 
 
-To find an optimal point in time we used the procedure described in section \ref{sec:find-optimal-time}. 
-
-For the nearby search, we  use a list of selected OSM tags like \verb|shop=supermarket| or \verb|amenity=pharmacy| as a search criteria. We also only considering locations which have opening hours specified (via the \verb|opening_hours| tag). Additionally, only locations which are in a defined radius around the starting point are considered, at this we use the direct distance (“as the crow flies”). To reduce the computation effort a maximum number of results $k$ can be specified.
+To find an optimal point in time we used the procedure described in section \ref{sec:find-optimal-time}.  For the nearby search, we  use a list of selected OSM tags like \verb|shop=supermarket| or \verb|amenity=pharmacy| as a search criteria. We also only considering locations which have opening hours specified (via the \verb|opening_hours| tag). Additionally, only locations which are in a defined radius around the starting point are considered, at this we use the direct distance (“as the crow flies”). To reduce the computation effort a maximum number of results $k$ can be specified.
 
 As optimization algorithm, we use the implementation of Brent's method in the Apache Commons Mathematics Library \parencite{ASF2016} with 10 random start points to reduce the risk that only a local optimum is found.
 
@@ -83,7 +82,7 @@ As optimization algorithm, we use the implementation of Brent's method in the Ap
 To evaluate the routing, we select 1000 random pairs of start and destinations points form the examined  area and 10 random dates from the period of 1 June to 31 August 2015. For each of the start destination pairs and each date we  perform the evaluation at 7:00, 11:00, 15:00, 19:00 and 23:00, so overall we had $50\,000$ samples. As benchmark we computed for each sample the shortest path. 
 
 
-An overview of our results is given in table \ref{tab:results-routing}. In many cases the heat exposure could be reduced. On average the heat exposure has been decreased by \SI{4.63}{\percent}/\SI{4.69}{\percent} while in the same time the distance was increased by  \SI{5.59}{\percent}/\SI{5.76}{\percent} on average. In some cases the heat exposure can be reduced by up to \SI{25}{\percent}. The weighted average of the thermal comfort measure can be reduced by about \SI{2}{\celsius} on average. There are only slight differences between the air temperature and the heat index as measure for thermal comfort. 
+An overview of our results is given in table \ref{tab:results-routing}. In many cases the heat exposure could be reduced. On average the heat exposure has been decreased by \SI{\sim 4.7}{\percent} while in the same time the distance was increased by at most \SI{5.76}{\percent} on average. In some cases the heat exposure can be reduced by up to \SI{25}{\percent}. The weighted average of the thermal comfort measure can be reduced by \SI{\sim 2}{\celsius} on average. There are only slight differences between the air temperature and the heat index as measure for thermal comfort. 
 
 In the example given in figure \ref{fig:route-example} the heat exposure could be reduced by \SI{17.64}{\percent} (\emph{temperature}) and \SI{18.76}{\percent} (\emph{heatindex}), while at the same time the distance only increased by  \SI{0.53}{\percent}.
 
