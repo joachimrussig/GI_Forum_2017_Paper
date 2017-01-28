@@ -101,7 +101,7 @@ Note, that the location $\ell$ is fixed, the selection of the location with lowe
 
  \subsubsection{Optimization}
  
- To find the optimal time, we need a optimization method without derivatives, because the objective function $h(\ell, t)$ is not necessarily derivable. One such method is Brent's method \parencite{Brent2002}, a procedure for the approximation of local optima within an interval $[x_1, x_2]$, which usually converges faster than the bisection method \parencite{Press1992}.
+ To find the optimal time, we need a optimization method without derivatives, because the objective function $h(\ell, t)$ is not necessarily derivable. One such method is Brent's method \parencite{Brent2002}, a procedure for the approximation of local optima within an interval $[x_1, x_2]$.
  
  In order to apply Brent's method, we have to transform the constrains \eqref{eq:optimal-time:twm} -- \eqref{eq:optimal-time:tn} to a lower and upper limit of an interval.  The constrains \eqref{eq:optimal-time:twm}, \eqref{eq:optimal-time:te} and \eqref{eq:optimal-time:tn} can  be easily converted to a lower limit, as follows: 
   	\begin{equation}\label{eq:lower-limit}
