@@ -41,7 +41,7 @@ hereafter the edge weighting is frozen at the starting time $t_0$ so that we hav
 	\label{fig:raster-edge-mapping}
 \end{figure}
 
-To find a route with a minimal heat exposure it is key to define the edge weighting function in an appropriated way. At this, it is not sufficient to only take the actual thermal comfort value  in to account, we also must consider the time a person is exposed to the heat. Below, we assume that the time of exposure is proportional to the length of the edge $w_d$ \parencite[following][]{Hasenfratz2015}. Based on this assumption we are defining the edge weighting function $w_h$ as follows: 
+To find a route with a minimal heat exposure it is key to define the edge weighting function in an appropriated way. At this, it is not sufficient to only take the actual thermal comfort in to account, we also must consider the time a person is exposed to heat. Below, we assume that the time of exposure is proportional to the length of the edge $w_d$ \parencite[following][]{Hasenfratz2015}. Based on this assumption we are defining the edge weighting function $w_h$ as follows: 
 \begin{equation}\label{eq:edge-weight}
 w_h(e, t) := \sum_{c \in Intersec(e)} d_c \cdot h_c(t).
 \end{equation}
@@ -63,7 +63,7 @@ for the heat index. Here, $T_a(t,c)$ is the air temperature in raster cell $c$ a
  
  Apart from selecting a route with minimal heat exposure the risk of heat stress in the everyday life (e.g. go shopping in a supermarket) can massively be reduced by selecting the appropriate time for this action. That's because usually, the heat exposure is highest at middays and significant lower in the morning or evening.
  
- We are proposing an approach for a decision support tool that can help to find an optimal time for a certain type of location defined by a search criteria, that is within a specified radius. To obtain that goal, we are using three steps:
+ To give recommendations for a time with minimal heat exposure, we are use a three step procedure: 
  
  \begin{enumerate}
  	\item \label{itm:nearby-search} Perform a nearby search originating from a given starting point $s$  (e.g. address or GPS coordinates) to find all locations $L$ that fulfils a certain search criteria (e.g. is supermarket or pharmacy)  within a specified radius $r$ (e.g. \SI{500}{\meter}).
@@ -77,11 +77,11 @@ The steps \ref{itm:nearby-search} and \ref{itm:ranking} are not very complicated
 
 \subsubsection{Modelling as a Optimization Problem} 
 
-If we are search for the optimal point in time for a location $\ell$ we should consider certain constrains like the opening hours $[t_{open}(\ell),t_{close}(\ell)]$ of a location $\ell \in L$. As the objective function to minimize we are using the heat exposure of the optimal path between the starting point $s$ and a location $\ell$ as proposed above. Those, finding the point in time with the minimal heat exposure means to minimize the following objective function $h(\ell, t)$:
+If we are search for the optimal time for a location $\ell \in L$ we should consider certain constrains like the opening hours $[t_{open}(\ell),t_{close}(\ell)]$ of $\ell$. As the objective function to minimize we are using the heat exposure of the optimal path between the starting point $s$ and a location $\ell$ as proposed above. Those, finding the time with the minimal heat exposure means to minimize the following objective function $h(\ell, t)$:
 	\begin{equation}\label{eq:objective-funtion}
 		h(\ell, t) = w_h(p^*, t) = \min_{p\in P_{s\ell}} w_h(p, t) = \min_{p\in P_{s\ell}} \sum_{(e, t') \in p} w_h(e, t'),
 	\end{equation}
-where $P_{s\ell}$ is the set of all possible paths from $s$ to $\ell$ and $w_h(p, t)$ is the accumulated edge weight of all edges in $p$ at starting time $t$ and $w_h$ is the edge weighting function from equation \eqref{eq:edge-weight}. 
+where $P_{s\ell}$ is the set of all possible paths from $s$ to $\ell$,  $w_h(p, t)$ is the accumulated edge weight of all edges in $p$ at starting time $t$ and $w_h$ is the edge weighting function from equation \eqref{eq:edge-weight}. 
 
 Using the objective function defined in equation \eqref{eq:objective-funtion}, we can formulate the problem to find a time with minimal heat exposure as a optimization problem with constrains:
 \begin{subequations}
@@ -97,11 +97,11 @@ Using the objective function defined in equation \eqref{eq:objective-funtion}, w
 	\end{alignat}
 \end{subequations}
 
-Note, that the location $\ell$ is fixed, the selection of the location with lowest heat exposure is performed later in step \ref{itm:ranking}. The constrains \eqref{eq:optimal-time:twm} and \eqref{eq:optimal-time:twe} are  basically ensuring that the location is arrived within the opening hours. We must ensure that the shop can be reached before it closes, therefore we have to consider the time needed to walk to the location $\ell$ ($t_{walk}(\ell)$) as well as the time needed perform e.g. the purchase ($t_{buff}(\ell)$). On the other hand, it can make sense to start early in the morning  arrive the location $\ell$ just in time when its opening, so we are subtracting the walking time from the opening time. The constrains \eqref{eq:optimal-time:te} and \eqref{eq:optimal-time:tl} are an earliest respectively latest time desired by the user and can be omitted. Finally, the last constrain  \eqref{eq:optimal-time:tn}  guarantees, that the optimal time is in the future. Another thing to notice is, that the walking time $t_{walk}(\ell, t)$ depends on the starting time $t$, because conditional on the time a different (properly longer) optimal route can be selected.
+Note, that the location $\ell$ is fixed, the selection of the location with lowest heat exposure is performed later in step \ref{itm:ranking}. The constrains \eqref{eq:optimal-time:twm} and \eqref{eq:optimal-time:twe} are  basically ensuring that the location is arrived within the opening hours. We must ensure that the shop can be reached before it closes, therefore we have to consider the time needed to walk to the location $\ell$ ($t_{walk}(\ell)$) as well as the time needed to perform e.g. the purchase ($t_{buff}(\ell)$). On the other hand, it can make sense to start early in the morning  arrive the location $\ell$ just in time when its opening, so we are subtracting the walking time from the opening time. The constrains \eqref{eq:optimal-time:te} and \eqref{eq:optimal-time:tl} are an earliest respectively latest time desired by the user and can be omitted. Finally, the last constrain  \eqref{eq:optimal-time:tn}  guarantees, that the optimal time is in the future. Another thing to notice is, that the walking time $t_{walk}(\ell, t)$ depends on the starting time $t$, because conditional on the time a different (properly longer) optimal route can be selected.
 
  \subsubsection{Optimization}
  
- Now we must find the optimal point in time for each location $\ell \in L$. Since, not necessarily derivations for the objective function $h(\ell, t)$ exits, we have to use optimization method without derivatives like Brent's method \parencite{Brent2002}. Brent's  method is a procedure for the approximation of local optima within an interval $[x_1, x_2]$, which usually converges faster than the bisection method \parencite{Press1992}.
+ To find the optimal time, we need a optimization method without derivatives, because the objective function $h(\ell, t)$ is not necessarily derivable. One such method is Brent's method \parencite{Brent2002}, a procedure for the approximation of local optima within an interval $[x_1, x_2]$, which usually converges faster than the bisection method \parencite{Press1992}.
  
  In order to apply Brent's method, we have to transform the constrains \eqref{eq:optimal-time:twm} -- \eqref{eq:optimal-time:tn} to a lower and upper limit of an interval.  The constrains \eqref{eq:optimal-time:twm}, \eqref{eq:optimal-time:te} and \eqref{eq:optimal-time:tn} can  be easily converted to a lower limit, as follows: 
   	\begin{equation}\label{eq:lower-limit}
@@ -130,4 +130,4 @@ Note, that the location $\ell$ is fixed, the selection of the location with lowe
  	& & t &\leq \min\left\lbrace  t_{close}(\ell)- \left(t_{walk}^{shortest}(\ell) + t_{buff}(\ell)\right), t_{latest} \right\rbrace.
  	\end{alignat}
  \end{subequations}
-Now we can use Brent's method to find for each location $\ell$ the optimal point in time $t^*$. To avoid, that the Brent optimizer is trapped in a local optimum, its executed several times with different random start points.
+Now we can use Brent's method to find for each location $\ell$ the optimal time $t^*$. To avoid, that the Brent optimizer is trapped in a local optimum, its executed several times with different random start points.
