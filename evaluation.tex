@@ -25,7 +25,7 @@ T_{a}^{station}(t) + \delta_{ij}^{evening} & \text{if $12 \leq t < 24$,}
 where $T_{a}^{station}(t)$ is the air temperature measured at the weather station at time $t$ and $\delta^{morning}_{ij}$ respectively  $\delta^{evening}_{ij}$ is the deviation of the raster cell $c_{ij}$ from the mean of all raster cells from the morning respectively evening scan.
 
 We compute an approximation of Steadman's heat index with \textcite[77]{Stull2011}. Since the heat index is only defined for an air temperature between \SI{20}{\celsius} and \SI{50}{\celsius} we use the air temperature as a fallback. If the air temperature dropps in a raster cell below a comfort threshold $T_a^{comfort}$ or $T_{HI}^{comfort}$, then that comfort value will be used, because temperature below this threshold are not considered harmful. 
-For the implementation of the routing we used the GraphHopper framework for Java \parencite{GraphHopper2016,GraphHopper2016a}.
+For the implementation of the routing we used the GraphHopper framework for Java \parencite{GraphHopper2016}.
 
 
 To find an optimal point in time we used the procedure described in section \ref{sec:find-optimal-time}. 
@@ -57,10 +57,10 @@ As optimization algorithm, we use the implementation of Brent's method in the Ap
 		& average  & \SI{2.12}{\celsius} & \SI{2.32}{\celsius}  \\
 		\hline
 	\end{tabular}
-	\caption{Overview of the results of the routing approach. The values are relative to the shortest route. \label{tab:results-routing}}
+	\caption{Overview routing results. The values are relative to the shortest route. \label{tab:results-routing}}
 \end{table}
 
-
+\afterpage{
 \begin{figure}
 	\centering
 	\subfigure[map]{
@@ -76,6 +76,7 @@ As optimization algorithm, we use the implementation of Brent's method in the Ap
 \end{figure}
 \footnotetext{\url{http://creativecommons.org/licenses/by/3.0}}
 \footnotetext{\url{http://www.openstreetmap.org/copyright}}
+}
 
 To evaluate the routing, we select 1000 random pairs of start and destinations points form the examined  area and 10 random dates from the period of 1 June to 31 August 2015. For each of the start destination pairs and each date we  perform the evaluation at 7:00, 11:00, 15:00, 19:00 and 23:00, so overall we had $50\,000$ samples. As benchmark we computed for each sample the shortest path. 
 
@@ -85,17 +86,6 @@ An overview of our results is given in table \ref{tab:results-routing}. In many 
 In the example given in figure \ref{fig:route-example} the heat exposure could be reduced by \SI{17.64}{\percent} (\emph{temperature}) and \SI{18.76}{\percent} (\emph{heatindex}), while at the same time the distance only increased by  \SI{0.53}{\percent}.
 
 \subsubsection{Optimal Time}
-
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.9]{figures/optimaltime_route_example}
-	\caption{Example for nearby search: In the graphic the starting point (black dot) as well as the locations ranked first by the respective method. (Map tiles by \textcite{Stamen2017}, under CC BY 3.0. Map data by \textcite{OSMF2016}, under ODbL)}
-	\label{fig:optimaltime-route-example}
-\end{figure}
-
-For the evaluation of optimal time finding procedure we selected 750 random start points. One of the following four search criteria has been assigned to each of the start points at random: supermarket, bakery, chemist or pharmacy. For each of the start points a random start time $t_{now}$ has been selected from the period of 8:00 to 20:00. The radius has been set to \SI{1000}{\meter} for all start points and the maximum number of results has been set to 5. Additionally, for all start points a time buffer $t_{buff}$ of 15 minutes has been assumed. 
-
-As a reference solution, we use the closest location found during the nearby search, compute the shortest path from the starting point to this location and evaluated the heat exposure at time $t_{now}$. 
 
 \begin{table}
 	\centering
@@ -115,8 +105,18 @@ As a reference solution, we use the closest location found during the nearby sea
 	\caption{Overview of the results of the combined approach each compared with the reference solution.  \label{tab:results-optimal-time}}
 \end{table}
 
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.9]{figures/optimaltime_route_example}
+	\caption{Example for nearby search: In the graphic the starting point (black dot) as well as the locations ranked first by the respective method. (Map tiles by \textcite{Stamen2017}, under CC BY 3.0. Map data by \textcite{OSMF2016}, under ODbL)}
+	\label{fig:optimaltime-route-example}
+\end{figure}
+
+For the evaluation of optimal time finding procedure we selected 750 random start points. One of the following four search criteria has been assigned to each of the start points at random: supermarket, bakery, chemist or pharmacy. For each of the start points a random start time $t_{now}$ has been selected from the period of 8:00 to 20:00. The radius has been set to \SI{1000}{\meter} for all start points and the maximum number of results has been set to 5. Additionally, for all start points a time buffer $t_{buff}$ of 15 minutes has been assumed. 
+
+As a reference solution, we use the closest location found during the nearby search, compute the shortest path from the starting point to this location and evaluated the heat exposure at time $t_{now}$. 
 
 The results for the combined approach are given in table \ref{tab:results-optimal-time}. Here the average reduction compared to the routing approach is significantly higher. This is expected as the heat exposure can vary strongly with the time of the day. 
 
-In the example given in figure \ref{fig:optimaltime-route-example} the \emph{temperature} weighting selected the same pharmacy and optimal point in time (9:27) as the reference solution. Contrary the \emph{heatindex} weighting selected a different pharmacy which is \SI{476.6}{\meter} instead of  \SI{434.5}{\meter} a way from the starting point. Additional the method found a different optimal time (19:39) and those the heat exposure could be reduced by \SI{18.49}{\percent}.  
+In the example given in figure \ref{fig:optimaltime-route-example} the \emph{temperature} weighting selected the same pharmacy and optimal point in time (9:27) as the reference solution. Contrary the \emph{heatindex} weighting selected a different pharmacy which is \SI{476.6}{\meter} instead of  \SI{434.5}{\meter} a way from the start. Additional the method found a different optimal time (19:39) and those the heat exposure could be reduced by \SI{18.49}{\percent}.  
  
