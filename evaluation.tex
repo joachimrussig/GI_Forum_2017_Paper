@@ -6,7 +6,7 @@
 \subsection{Data}
 \label{sec:data-sets}
 As map data, we use the data from the OpenStreetMap (OSM) project \parencite{OSMF2016}. 
-For temperature data we use the hourly air temperature and relative humidity values originating from the weather station of the German Weather Service (Deutscher Wetterdienste, DWD) in Rheinstetten near Karlsruhe \parencite{DWD2016}. For a finer spatial resolution we use remote sensing data of a thermal scanner flight provided by the Nachbarschaftsverband Karlsruhe (NVK). The data set consists of two scans, recorded in the morning and in the evening of the 26 September 2008. The data are covering an area of  $\SI{25 805}{\meter} \times \SI{39 555}{\meter}$ (EW NS) and have a resolution of $5\,161 \times 7\,911$  pixels. The measured surface temperature is in the range of \SIrange{-1.7}{18.3}{\celsius} (morning and evening). The average surface temperature of the data sets cropped to the evaluated area is \SI{4.18}{\celsius} (morning) respectively \SI{11.24}{\celsius} (evening).  
+For weather data we use the hourly air temperature and relative humidity values originating from the weather station of the German Weather Service (Deutscher Wetterdienste, DWD) in Rheinstetten near Karlsruhe \parencite{DWD2016}. For a finer spatial resolution we use remote sensing data of a thermal scanner flight provided by the Nachbarschaftsverband Karlsruhe (NVK). The data set consists of two scans, recorded in the morning and in the evening of the 26 September 2008. The data are covering an area of  $\SI{25 805}{\meter} \times \SI{39 555}{\meter}$ (EW NS) and have a resolution of $5\,161 \times 7\,911$  pixels. The measured surface temperature is in the range of \SIrange{-1.7}{18.3}{\celsius} (morning and evening). The average surface temperature of the data sets cropped to the evaluated area is \SI{4.18}{\celsius} (morning) respectively \SI{11.24}{\celsius} (evening).  
 
 
 \subsection{Data Preparation}
@@ -43,12 +43,12 @@ As optimization algorithm, we use the implementation of Brent's method in the Ap
 	\centering
 	\begin{tabular}{lp{9.25cm}lcc}
 		\toprule
-		& & temperature & heat index \\
+		& & \emph{temperature} & \emph{heatindex} \\
 		\midrule
 		\multicolumn{4}{l}{Reduction of heat exposure (\% of cases) }   \\
 		& overall  & \SI{79.70}{\percent} & \SI{80.53}{\percent}  \\
-		& more then \SI{5}{\percent} & \SI{42.72}{\percent} & \SI{45.11}{\percent} \\
-		& more then \SI{10}{\percent} & \SI{13.81}{\percent} & \SI{16.07}{\percent} \\
+		& more than \SI{5}{\percent} & \SI{42.72}{\percent} & \SI{45.11}{\percent} \\
+		& more than \SI{10}{\percent} & \SI{13.81}{\percent} & \SI{16.07}{\percent} \\
 		\multicolumn{4}{l}{Reduction of heat exposure}  \\
 		& average  & \SI{4.63}{\percent} & \SI{4.69}{\percent}  \\
 		& maximum  & \SI{25.97}{\percent} & \SI{26.17 }{\percent}  \\
@@ -81,7 +81,7 @@ As optimization algorithm, we use the implementation of Brent's method in the Ap
 \footnotetext{\url{http://www.openstreetmap.org/copyright}}
 }
 
-To evaluate the routing, we select 1000 random pairs of start and destination points from the examined  area and 10 random dates from the period of 1 June to 31 August 2015. For each of the start destination pairs and each date we  perform the evaluation at 7:00, 11:00, 15:00, 19:00 and 23:00, so overall we have $50\,000$ samples. As benchmark we compute for each sample the shortest path. 
+To evaluate the routing, we select 1000 random pairs of start and destination points from the examined  area and 10 random dates from the period of 1 June to 31 August 2015. For each of the start destination pairs and each date we  perform the evaluation at 7:00, 11:00, 15:00, 19:00 and 23:00, so overall we have $50\,000$ samples. As a benchmark, we compute the shortest path for each sample. 
 
 
 An overview of our results is given in table \ref{tab:results-routing}. In many cases the heat exposure can be reduced. On average the heat exposure is decreased by \SI{\sim 4.7}{\percent} while in the same time the distance increased by at most \SI{5.76}{\percent} on average. In some cases, the heat exposure is reduced by up to \SI{25}{\percent}. The weighted average of the thermal comfort measure can be reduced by \SI{\sim 2}{\celsius} on average. There are only slight differences between the air temperature and the heat index as measure for thermal comfort. 
@@ -94,7 +94,7 @@ In the example given in figure \ref{fig:route-example} the heat exposure is redu
 	\centering
 	\begin{tabular}{lp{9.25cm}lcc}
 		\toprule
-		& & temperature & heat index \\
+		& & \emph{temperature} & \emph{heatindex} \\
 		\midrule
 		\multicolumn{4}{l}{Reduction of heat exposure}   \\
 		& \% of cases  & \SI{68.43}{\percent} & \SI{71.08}{\percent}  \\
@@ -115,7 +115,7 @@ In the example given in figure \ref{fig:route-example} the heat exposure is redu
 	\label{fig:optimaltime-route-example}
 \end{figure}
 
-For the evaluation of optimal time finding procedure we selected 750 random start points. Afterwards, One of the following four search criteria is assigned to each of the start points at random: supermarket, bakery, chemist or pharmacy. For each of the start points a random start time $t_{now}$ is selected from the period of 8:00 to 20:00. The radius is set to \SI{1000}{\meter} for all start points and the maximum number of results is set to 5. Additionally, for all start points a time buffer $t_{buff}$ of 15 minutes is assumed. 
+For the evaluation of optimal time finding procedure we selected 750 random start points. Afterwards, one of the following four search criteria is assigned to each of the start points at random: supermarket, bakery, chemist or pharmacy. For each of the start points a random start time $t_{now}$ is selected from the period of 8:00 to 20:00. The radius is set to \SI{1000}{\meter} for all start points and the maximum number of results is set to 5. Additionally, for all start points a time buffer $t_{buff}$ of 15 minutes is assumed. 
 
 As a reference solution, we use the closest location found during the nearby search, compute the shortest path from the starting point to this location and evaluated the heat exposure at time $t_{now}$. 
 
