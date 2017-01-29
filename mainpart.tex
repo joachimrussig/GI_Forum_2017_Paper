@@ -111,7 +111,7 @@ Note, that the location $\ell$ is fixed, as the selection of the location with l
   	\end{equation}
  It's simple to recognize, that the interval $[t_{lower}(\ell, t), t_{upper}(\ell, t)]$ preserves the constrains from the optimization problem defined above in equation \eqref{eq:optimal-time}.  
  
- However, Brent's method can still not be applied, since -- as outlined above in section \ref{sec:optimization} -- the lower and upper limit of the interval is depending on the starting time $t$ and therefore, not static as required for Brent's method. As solution to avoid this problem we are proposing the introduction of a penalty term:
+ However, Brent's method can still not be applied, since -- as outlined above in section \ref{sec:optimization} -- the lower and upper limit of the interval is depending on the starting time $t$ and therefore, not static as required for Brent's method. As solution to avoid this problem we are proposing the introduction of a penalty term and thus the following new objective function $h'(t,\ell)$:
  \begin{equation}
  \label{eq:optimal-time-penality}
  h'(t,\ell) = \begin{cases}
