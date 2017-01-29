@@ -3,29 +3,26 @@
 
 \section{Introduction}
 
-Heat is an important factor to human health and comfort. High temperatures cannot only lead to a discomfort,such as sweating, it also has serious negative effects on the health as well as on the ability to work. 
+Heat is an important factor to human health and comfort. High temperatures cannot only lead to a discomfort, such as sweating, it also has serious negative effects on the health as well as on the ability to work. 
 
 In numerous studies an increase in both mortality and
-morbidity has been associated with a high ambient temperature \parencite{Basu2009}. The most well known example in recent history is the 2003 heat wave in Europe. 
-Certain groups are especially vulnerable to heat stress such as older people or people with health problems \parencite{Ebi2004,Huebler2007}. For patients with multiple sclerosis an increased body temperature can lead to a worsening of their symptoms \parencite{Davis2010}.
+morbidity has been associated with a high ambient temperature \parencite{Basu2009}. The most well-known example in recent history is the 2003 heat wave in Europe. 
+Certain groups are especially vulnerable to heat stress such as older people or people with health problems \parencite{Huebler2007}. For patients with multiple sclerosis an increased body temperature can lead to a worsening of their symptoms \parencite{Davis2010}.
 
-Developments like the ageing of society, the increasing urbanisation and the climate change is making the adaptation to heat stress danger more and more important. Due to the tendency that a rising number of people is moving into the cities, the urban heat island effect (UHI) is gaining more importance in the future. The UHI effect states that an urban area can be  \SIrange{8}{12}{\celsius} warmer than the rural areas \parencite{Prashad2014}. Individuals can reduce their heat stress by adapting their everyday behaviour. In this work we present a two step approach to help individuals in doing so.
+Developments like the ageing of society, the increasing urbanisation and the climate change is making the adaptation to heat stress danger more and more important. Due to the tendency that a rising number of people is moving into the cities, the urban heat island effect (UHI) is gaining more importance in the future. The UHI effect states that an urban area can be  \SIrange{8}{12}{\celsius} warmer than the rural areas \parencite{Prashad2014}. 
 
-In a city, most typical activities are in walking distance. These can range from going to a grocery store to the visit of a doctor. And while these activities can not be omitted, it is possible to use different routes or change the time when they are conducted. In doing so, one can easily reduce the heat stress without any negative impact on the quality of life. 
+Individuals can reduce their heat stress by adapting their everyday behaviour. In a city, most typical activities are in walking distance. These can range from going to a grocery store to the visit of a doctor. And while these activities cannot be omitted, it is possible to use different routes or change the time when they are conducted. In doing so, one can easily reduce the heat stress without any negative impact on the quality of life. 
 
-In this paper we use this reasoning into a two step approach to help individuals reduce their heat stress. First, we apply a time dependent routing algorithm to compute the optimal path in regard to the heat stress. This algorithm is then used to determine the optimal point in time to conduct typical everyday activities. 
-
-
-
-   
+In this paper, we use this reasoning into a two-step approach to help individuals reduce their heat stress. First, we apply a routing algorithm to compute the optimal path in regard to the heat stress. This algorithm is then used to determine the optimal point in time to conduct typical everyday activities. 
+  
 \subsection{Related Work} 
 
 \subsubsection{Heat Stress}
 The impact of heat on the human body has long been a subject of study. Thermal comfort plays a key role, which describes climatic conditions consider comfortable. 
 
-Staiger et al. \parencite{Staiger1997} state that only a complete heat budget model of the human body is sufficient to make any reliable statements regarding the influence of heat on the body. Some well known indices that consider a complete human heat budget model are the following:
+\textcite{Staiger1997} state that only a complete heat budget model of the human body is sufficient to make any reliable statements regarding the influence of heat on the body. Some well-known indices that consider a complete human heat budget model are the following:
 \begin{inparaenum}[(1)]
-  \item \citeauthor{Steadman1979}'s heat index (\citeauthor{Steadman1979} \citeyear*{Steadman1979}\citeyear*{Steadman1979a}),
+  \item \citeauthor{Steadman1979}'s heat index (\citeauthor{Steadman1979} \citeyear*{Steadman1979}, \citeyear*{Steadman1979a}),
   \item the predicted mean vote (PMV) \parencite{Fanger1973},
   \item the perceived temperature \parencite{Staiger1997,Jendritzky2000},
   \item and the universal thermal climate Index UTCI \parencite{Jendritzky2010}.
@@ -34,17 +31,16 @@ Staiger et al. \parencite{Staiger1997} state that only a complete heat budget mo
 For all these indices the following meteorological parameters are important:
 \begin{inparaenum}[(1)]
 \item air temperature,
-\item vapour pressure,
+\item water vapour pressure,
 \item wind velocity 
-\item and mean radiant temperature of the surroundings \parencite{Matzarakis1999}.
+\item and mean radiant temperature \parencite{Jendritzky2010}.
 \end{inparaenum}
 
-Based on the availability of data, in this paper we will use \citeauthor{Steadman1979}'s heat index \parencite{Steadman1979} and, as a simple comparison measure, the air temperature. To compute an approximation of the heat index we use the formula published by \textcite[77]{Stull2011}.  
+Based on the availability of data, in this paper we will use \citeauthor{Steadman1979}'s heat index \parencite{Steadman1979} and, as a simple comparison measure, the air temperature.
 
-\subsubsection{Time Dependent Routing}
-Several research projects have considered environmental factors for pedestrian routing in the paste. The AffectRoute routing algorithm proposed by \textcite{Huang2014} for instance takes the affective responses to the environment into account, e.g. to find a route that a person considers safer.  \textcite{Sharker2012} are proposing a method to find a health optimal route, considering several environmental factors like complexity of the walking trail (slope etc.) and weather (only “Good”, “Fair” or “Bad”). A method to find a route with a minimal pollution exposure has been proposed by \textcite{Hasenfratz2015} in his PhD thesis.
+\subsubsection{Environmental Dependent Routing}
+Several research projects have considered environmental factors for pedestrian routing in the paste. For instance, \textcite{Sharker2012} are proposing a method to find a health optimal route, considering several environmental factors like complexity of the walking trail (slope etc.) and weather (only “Good”, “Fair” or “Bad”). A method to find a route with a minimal pollution exposure has been proposed by \textcite{Hasenfratz2015}.
 
-The NaviComf framework for pedestrian routing proposed by \citeauthor{Dang2012} (\citeyear{Dang2012}, \citeyear{Dang2013}), enables to improve the comfort considering environmental factors varying over time. The proposed framework uses a multi-factor cost model for the evaluation of the route and enables them to consider heterogeneous environmental information from multi-modal
- sensors like air temperature and humidity. To find a optimal route \textcite{Dang2013} are proposing three different algorithms,  a bounded depth-first search algorithm, an adjustable dynamic planning algorithm and a heuristic particle planning algorithm. As a sample application, the authors implemented a routing app for thermal comfort navigation. The meteorological used for this sample application have been collected using a network of 40 micro-climate sensor nodes which detected air temperature and relative humidity. 
+The NaviComf framework for pedestrian routing proposed by \textcite{Dang2013}, enables to improve the comfort considering environmental factors varying over time. The proposed framework uses a multi-factor cost model for the evaluation of the route and enables them to consider heterogeneous environmental information from multi-modal sensors like air temperature and humidity. To find a optimal route \textcite{Dang2013} are proposing three different algorithms,  a bounded depth-first search algorithm, an adjustable dynamic planning algorithm and a heuristic particle planning algorithm. As a sample application, the authors implemented a routing app for thermal comfort navigation. The meteorological used for this sample application have been collected using a network of 40 micro-climate sensor nodes which detected air temperature and relative humidity. 
 
 In contrast to the existing work, we contribute an approach which does not rely on extensive sensor networks. We achieve this by combining remote sensing data with in-situ weather stations and the use of a static routing algorithm.
