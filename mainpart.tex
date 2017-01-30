@@ -28,7 +28,7 @@ To compute the weight of a path $w_h(p)$ the following formula can be applied:
 	\end{equation}
 Those means one looks for the path $p^*$ from a node $v$ to a node $u$ that has the minimal weight of all possible path from $v$ to $u$. Below, we are using $w_h(p, t)$ to denote the weight of the path $p$ starting at time $t$. 
 
-The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) property is not fulfilled \parencite{Orda1990}. A weighting function $w$ fulfils the FIFO property if the change of the edge weight decreases not faster than the change in the actual time $t$ increases \parencite{Kaufman1993}. 
+The time-dependent routing problem is $\mathcal{NP}$-hard, if it is not allowed to wait on a node and the FIFO (first in, first out) property is not fulfilled \parencite{Orda1990}. A~weighting function $w$ fulfils the FIFO property if the change of the edge weight decreases not faster than the change in the actual time $t$ increases \parencite{Kaufman1993}. 
 
 Usually, one cannot assume that $w_h$ fulfils the FIFO property, because the function depends in most instances on the air temperature. In general the air temperature can decrease more than the actual time increases. Since most people are not willing to wait at a node, finding a route with a minimal heat exposure is $\mathcal{NP}$-hard.
 Hereafter the edge weighting is frozen at the starting time $t_0$ so that we have static route planning problem and classic algorithms like  \citeauthor{Dijkstra1959}'s algorithm \parencite{Dijkstra1959} can be applied. 
@@ -43,7 +43,7 @@ Hereafter the edge weighting is frozen at the starting time $t_0$ so that we hav
 	\label{fig:raster-edge-mapping}
 \end{figure}
 
-To find a route with a minimal heat exposure it is key to define the edge weighting function in an appropriated way. At this, it is not sufficient to only take the actual thermal comfort in to account, one must consider the time a person is exposed to heat. Below, we assume that the time of exposure is proportional to the length of the edge $w_d$ \parencite[following][]{Hasenfratz2015}. Based on this assumption we are defining the edge weighting function $w_h$ as follows: 
+To find a route with a minimal heat exposure it is key to define the edge weighting function in an appropriated way. At this, it is not sufficient to only take the actual thermal comfort in to account, one must consider the time a person is exposed to heat as well. Below, we assume that the time of exposure is proportional to the length of the edge $w_d$ \parencite[following][]{Hasenfratz2015}. Based on this assumption we are defining the edge weighting function $w_h$ as follows: 
 \begin{equation}\label{eq:edge-weight}
 w_h(e, t) := \sum_{c \in Intersec(e)} d_c \cdot h_c(t).
 \end{equation}
@@ -98,7 +98,7 @@ Using the objective function defined in equation \eqref{eq:objective-funtion}, o
 	\end{alignat}
 \end{subequations}
 
-Note, that the location $\ell$ is fixed, as the selection of the location with lowest heat exposure is performed later in step \ref{itm:ranking}. The constrains \eqref{eq:optimal-time:twm} and \eqref{eq:optimal-time:twe} are ensuring that the arrival at location is within the opening hours. One must ensure that the shop can be reached before it closes. One must to consider the time needed to walk to the location $\ell$ ($t_{walk}(\ell)$) as well as the time needed to perform e.g.\ the purchase ($t_{buff}(\ell)$). But it can make sense to start early in the morning to arrive the location $\ell$ just in time when it opens, so one subtracts the walking time from the opening time. The constrains \eqref{eq:optimal-time:te} and \eqref{eq:optimal-time:tl} are an earliest respectively latest time desired by the user and are optional. The last constrain  \eqref{eq:optimal-time:tn}  guarantees that the optimal time is in the future. The walking time $t_{walk}(\ell, t)$ depends on the starting time $t$, because, conditional on the time, a different optimal route could be selected.
+Note, that the location $\ell$ is fixed, as the selection of the location with lowest heat exposure is performed later in step \ref{itm:ranking}. The constrains \eqref{eq:optimal-time:twm} and \eqref{eq:optimal-time:twe} are ensuring that the arrival at location is within the opening hours. One must ensure that the shop can be reached before it closes. Therefore, one must consider the time needed to walk to the location $\ell$ ($t_{walk}(\ell)$) as well as the time needed to perform e.g.\ the purchase ($t_{buff}(\ell)$). But it can make sense to start early in the morning to arrive the location $\ell$ just in time when it opens, so one subtracts the walking time from the opening time. The constrains \eqref{eq:optimal-time:te} and \eqref{eq:optimal-time:tl} are an earliest respectively latest time desired by the user and are optional. The last constrain  \eqref{eq:optimal-time:tn}  guarantees that the optimal time is in the future. The walking time $t_{walk}(\ell, t)$ depends on the starting time $t$, because, conditional on the time, a different optimal route could be selected.
 
  \subsubsection{Optimization \label{sec:optimization}}
  
