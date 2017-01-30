@@ -24,7 +24,7 @@ T_{a}^{station}(t) + \delta_{ij}^{evening} & \text{if $12 \leq t < 24$,}
 \end{equation}
 where $T_{a}^{station}(t)$ is the air temperature measured at the weather station at time $t$ and $\delta^{morning}_{ij}$ respectively  $\delta^{evening}_{ij}$ is the deviation of the raster cell $c_{ij}$ from the mean of all raster cells from the morning respectively evening scan.
 
-We compute an approximation of Steadman's heat index as proposed by \textcite[77]{Stull2011}. Since the heat index is only defined for an air temperature between \SI{20}{\celsius} and \SI{50}{\celsius} air temperature is used as a fall-back value. If the air temperature drops in a raster cell below a comfort threshold $T_a^{comfort}$ or $T_{HI}^{comfort}$, that comfort value will be used, because temperature below this threshold are not considered harmful. 
+We compute an approximation of Steadman's heat index as proposed by \textcite[77]{Stull2011}. Since the heat index is only defined for an air temperature between \SI{20}{\celsius} and \SI{50}{\celsius}, the air temperature is used as a fall-back value. If the air temperature drops in a raster cell below a comfort threshold $T_a^{comfort}$ or $T_{HI}^{comfort}$, that comfort value will be used, because temperature below this threshold are not considered harmful. 
 
 For the implementation of the routing the GraphHopper framework for Java \parencite{GraphHopper2016} is used.
 
